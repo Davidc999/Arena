@@ -1,13 +1,16 @@
 package com.arena.graphics;
 
+import java.io.File;
+
 public class Sprite {
 
-    private final int SIZE;
+    protected final int SIZE;
     private int x, y;
     public int[] pixels;
     private SpriteSheet sheet;
 
-    public static Sprite grass = new Sprite(16,0, 1, null);
+    public static Sprite grass = new Sprite(16,0, 0, SpriteSheet.tiles);
+    public static Sprite voidSprite = new Sprite(16,0x1B87E0);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet){
         SIZE = size;
@@ -16,6 +19,18 @@ public class Sprite {
         this.y = y * size;
         this.sheet = sheet;
         load();
+    }
+
+    public Sprite(int size, int colour){
+        SIZE = size;
+        pixels = new int[SIZE * SIZE];
+        setColour(colour);
+    }
+
+    private void setColour(int colour){
+        for (int i = 0; i < SIZE*SIZE; i++){
+        pixels[i] = colour;
+        }
     }
 
     private void load(){

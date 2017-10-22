@@ -2,6 +2,8 @@ package com.arena;
 
 import com.arena.graphics.Screen;
 import com.arena.input.KeyBoard;
+import com.arena.level.Level;
+import com.arena.level.RandomLevel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +22,7 @@ public class Game extends Canvas implements Runnable{
     private Thread thread;
     private JFrame frame;
     private KeyBoard keyBoard;
+    private Level level;
 
     private boolean running = false;
 
@@ -37,6 +40,7 @@ public class Game extends Canvas implements Runnable{
 
         //setting the keyboard
         keyBoard = new KeyBoard();
+        level = new RandomLevel(64,64);
         addKeyListener(keyBoard);
     }
 
@@ -113,7 +117,7 @@ public class Game extends Canvas implements Runnable{
         }
 
         screen.clear();
-        screen.render(x, y);
+        level.render(x, y, screen);
 
         for ( int i =0 ; i < pixels.length ; i++){
             pixels[i] = screen.pixels[i];

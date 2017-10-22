@@ -2,6 +2,7 @@ package com.arena.graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class SpriteSheet {
@@ -9,6 +10,9 @@ public class SpriteSheet {
     private String path;
     public final int SIZE;
     public int[] pixels;
+    //static File directory = new File("res/textures/spritesheet.png");
+    public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png",32);
+    //public static SpriteSheet tiles = new SpriteSheet(directory.getAbsolutePath(),32);
 
     public SpriteSheet(String path, int size){
         this.path = path;
