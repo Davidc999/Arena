@@ -2,6 +2,7 @@ package com.arena;
 
 import com.arena.entity.mob.Player;
 import com.arena.graphics.Screen;
+import com.arena.graphics.Sprite;
 import com.arena.input.KeyBoard;
 import com.arena.level.Level;
 import com.arena.level.RandomLevel;
@@ -44,7 +45,7 @@ public class Game extends Canvas implements Runnable{
         //setting the keyboard
         keyBoard = new KeyBoard();
         level = new RandomLevel(64,64);
-        player = new  Player(keyBoard);
+        player = new  Player(keyBoard, Sprite.player);
         addKeyListener(keyBoard);
     }
 
@@ -117,7 +118,10 @@ public class Game extends Canvas implements Runnable{
         }
 
         screen.clear();
-        level.render(player.x, player.y, screen);
+        int xScroll = player.x - screen.width / 2;
+        int yScroll = player.y - screen.height / 2;
+        level.render(xScroll, yScroll, screen);
+        player.render(screen);
 
         for ( int i =0 ; i < pixels.length ; i++){
             pixels[i] = screen.pixels[i];

@@ -12,7 +12,7 @@ public class SpriteSheet {
     public int[] pixels;
     //static File directory = new File("res/textures/spritesheet.png");
     public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png",32);
-    //public static SpriteSheet tiles = new SpriteSheet(directory.getAbsolutePath(),32);
+    public static SpriteSheet maleWizard = new SpriteSheet("/textures/malewizard.png",128);
 
     public SpriteSheet(String path, int size){
         this.path = path;

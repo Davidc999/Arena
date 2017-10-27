@@ -34,11 +34,25 @@ public class Screen {
         xp -= xOffset;
         yp -= yOffset;
         for (int y = 0; y < tile.sprite.SIZE; y++) {
-            int ya = y + yp; // yp being yPos of the tile. y is inside the tile.
+            int ya = y + yp; // yp being yPixel, , the tile offset in pixels. y is inside the tile.
             for (int x = 0; x < tile.sprite.SIZE; x++) {
-                int xa = x + xp; // xp being xPos of the tile. x is inside the tile.
+                int xa = x + xp; // xp being xPos, , the tile offset in pixels. x is inside the tile.
                 if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
                 pixels[xa+ya*width] = tile.sprite.pixels[x+y*tile.sprite.SIZE];
+            }
+        }
+    }
+
+    public void renderPlayer(int xp, int yp, Sprite sprite) {
+        xp -= xOffset;
+        yp -= yOffset;
+        for (int y = 0; y < sprite.SIZE; y++) {
+            int ya = y + yp; // yp being yPixel, the tile offset in pixels. y is inside the tile.
+            for (int x = 0; x < sprite.SIZE; x++) {
+                int xa = x + xp; // xp being xPixel, , the tile offset in pixels. x is inside the tile.
+                if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+                int pixelColor = sprite.pixels[x+y*sprite.SIZE];
+                if(pixelColor != Sprite.alphaColor) pixels[xa+ya*width] = pixelColor;
             }
         }
     }

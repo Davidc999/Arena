@@ -4,13 +4,16 @@ import java.io.File;
 
 public class Sprite {
 
-    protected final int SIZE;
+    public final int SIZE;
     private int x, y;
     public int[] pixels;
     private SpriteSheet sheet;
 
+
+    public static int alphaColor = 0xffbadbad;
     public static Sprite grass = new Sprite(16,0, 0, SpriteSheet.tiles);
     public static Sprite voidSprite = new Sprite(16,0x1B87E0);
+    public static Sprite player = new Sprite(32,0,0,SpriteSheet.maleWizard);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet){
         SIZE = size;
