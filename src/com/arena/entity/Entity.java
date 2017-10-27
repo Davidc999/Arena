@@ -11,6 +11,13 @@ public abstract class Entity {
     private boolean removed = false;
     protected Level level;
     protected final Random random = new Random();
+    public enum Direction {
+        UP,
+        RIGHT,
+        DOWN,
+        LEFT;
+    }
+
 
     public void update(){
     }

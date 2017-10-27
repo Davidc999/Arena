@@ -1,5 +1,6 @@
 package com.arena;
 
+import com.arena.entity.mob.Player;
 import com.arena.graphics.Screen;
 import com.arena.input.KeyBoard;
 import com.arena.level.Level;
@@ -28,6 +29,8 @@ public class Game extends Canvas implements Runnable{
 
     private Screen screen;
 
+    private Player player;
+
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
@@ -41,6 +44,7 @@ public class Game extends Canvas implements Runnable{
         //setting the keyboard
         keyBoard = new KeyBoard();
         level = new RandomLevel(64,64);
+        player = new  Player(keyBoard);
         addKeyListener(keyBoard);
     }
 
@@ -98,12 +102,8 @@ public class Game extends Canvas implements Runnable{
     int x = 0 ,y = 0;
     // game logic
     public void update(){
-        keyBoard.updat();
-        if ( keyBoard.up) y--;
-        if ( keyBoard.down) y++;
-        if ( keyBoard.left) x--;
-        if ( keyBoard.right) x++;
-
+        keyBoard.update();
+        player.update();
     }
 
 
@@ -117,7 +117,7 @@ public class Game extends Canvas implements Runnable{
         }
 
         screen.clear();
-        level.render(x, y, screen);
+        level.render(player.x, player.y, screen);
 
         for ( int i =0 ; i < pixels.length ; i++){
             pixels[i] = screen.pixels[i];

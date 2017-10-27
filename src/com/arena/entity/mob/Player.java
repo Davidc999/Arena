@@ -1,15 +1,33 @@
 package com.arena.entity.mob;
 
+import com.arena.input.KeyBoard;
+
 public class Player extends Mob{
 
-    public Player(){}
+    private KeyBoard input;
 
-    public Player(int x, int y){
-        this.x = x;
-        this.y = y;
+    public Player(KeyBoard input){
+        this.input = input;
     }
 
-    public void update(){}
+    public Player(int x, int y, KeyBoard input){
+        this.x = x;
+        this.y = y;
+        this.input = input;
+    }
+
+    public void update(){
+
+        int xa = 0;
+        int ya = 0;
+
+        if (input.up) ya--;
+        if (input.down) ya++;
+        if (input.left) xa--;
+        if (input.right) xa++;
+
+        if (xa != 0 || ya != 0) move(xa, ya);
+    }
     
     public void render(){}
 }
