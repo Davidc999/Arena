@@ -1,33 +1,40 @@
 package com.arena.entity.mob;
 
 import com.arena.entity.Entity;
+import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Sprite;
 
 import static com.arena.entity.Entity.Direction.*;
 
 public abstract class Mob extends Entity {
 
-    protected Sprite sprite;
+    protected AnimatedSprite animatedSprite;
     protected Direction dir = UP;
     protected boolean moving = false;
 
     public void move(int xChange, int yChange){
-        //
+        Direction newDir = DOWN;
         if(xChange > 0){
-            dir = RIGHT;
+            newDir = RIGHT;
         }
         if(xChange < 0){
-            dir = LEFT;
+            newDir = LEFT;
         }
         if(yChange > 0){
-            dir = DOWN;
+            newDir = DOWN;
         }
         if(yChange < 0){
-            dir = UP;
+            newDir = UP;
         }
+        if (dir != newDir) {
+            dir = newDir;
+            animatedSprite.setAnimation(dir);
+        }
+
         if (!collision()) {
             x += xChange;
             y += yChange;
+            animatedSprite.start();
         }
     }
 

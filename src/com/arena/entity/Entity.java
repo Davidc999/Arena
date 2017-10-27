@@ -12,10 +12,10 @@ public abstract class Entity {
     protected Level level;
     protected final Random random = new Random();
     public enum Direction {
-        UP,
-        RIGHT,
         DOWN,
-        LEFT;
+        LEFT,
+        RIGHT,
+        UP;
     }
 
 

@@ -5,7 +5,7 @@ import java.io.File;
 public class Sprite {
 
     public final int SIZE;
-    private int x, y;
+    protected int x, y;
     public int[] pixels;
     private SpriteSheet sheet;
 
@@ -13,7 +13,6 @@ public class Sprite {
     public static int alphaColor = 0xffbadbad;
     public static Sprite grass = new Sprite(16,0, 0, SpriteSheet.tiles);
     public static Sprite voidSprite = new Sprite(16,0x1B87E0);
-    public static Sprite player = new Sprite(32,0,0,SpriteSheet.maleWizard);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet){
         SIZE = size;
@@ -36,7 +35,7 @@ public class Sprite {
         }
     }
 
-    private void load(){
+    protected void load(){
         for (int y =0 ; y<SIZE; y++){
             for (int x =0 ; x<SIZE; x++) {
                 pixels[x + y * SIZE] = sheet.pixels[x + this.x + (y + this.y) * sheet.SIZE];

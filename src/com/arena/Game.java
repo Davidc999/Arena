@@ -1,6 +1,7 @@
 package com.arena;
 
 import com.arena.entity.mob.Player;
+import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
 import com.arena.input.KeyBoard;
@@ -45,7 +46,7 @@ public class Game extends Canvas implements Runnable{
         //setting the keyboard
         keyBoard = new KeyBoard();
         level = new RandomLevel(64,64);
-        player = new  Player(keyBoard, Sprite.player);
+        player = new  Player(keyBoard, AnimatedSprite.player);
         addKeyListener(keyBoard);
     }
 

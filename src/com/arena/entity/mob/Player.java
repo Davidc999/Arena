@@ -1,5 +1,6 @@
 package com.arena.entity.mob;
 
+import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
 import com.arena.input.KeyBoard;
@@ -8,9 +9,9 @@ public class Player extends Mob{
 
     private KeyBoard input;
 
-    public Player(KeyBoard input, Sprite sprite){
+    public Player(KeyBoard input, AnimatedSprite animatedSprite){
         this.input = input;
-        this.sprite = sprite;
+        this.animatedSprite = animatedSprite;
     }
 
     public Player(int x, int y, KeyBoard input){
@@ -29,10 +30,18 @@ public class Player extends Mob{
         if (input.left) xa--;
         if (input.right) xa++;
 
-        if (xa != 0 || ya != 0) move(xa, ya);
+        if (xa != 0 || ya != 0) {
+            move(xa, ya);
+        }
+        else {
+            animatedSprite.stop();
+        }
+
+        animatedSprite.update();
+
     }
     
     public void render(Screen screen){
-        screen.renderPlayer(x - sprite.SIZE/2,y - sprite.SIZE/2, sprite);
+        screen.renderPlayer(x - animatedSprite.SIZE/2,y - animatedSprite.SIZE/2, animatedSprite);
     }
 }
