@@ -10,7 +10,7 @@ public class AnimatedSprite extends Sprite{
     private int updateCount;
     private final int animationLength;
 
-    public static AnimatedSprite player = new AnimatedSprite(32,0,0,SpriteSheet.maleWizard,20,3 );
+    public static AnimatedSprite player = new AnimatedSprite(32,0,0,SpriteSheet.maleWizard,10,3 );
 
     public AnimatedSprite(int size, int x, int y, SpriteSheet sheet, int updateDelay, int animationLength){
         super(size, x, y, sheet);
