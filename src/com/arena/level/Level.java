@@ -1,6 +1,7 @@
 package com.arena.level;
 
 import com.arena.graphics.Screen;
+import com.arena.graphics.TiledSpriteSheet;
 import com.arena.level.tile.Tile;
 
 public class Level {
@@ -51,9 +52,7 @@ public class Level {
 
     public Tile getTile(int x, int y){
         if(x<0 || x >= this.width || y<0 || y >= this.height) { return Tile.voidTile; } // Handle walking out of bounds
-        if(tiles[x + y * this.width] == 0) return Tile.grass;
-        else
-            return Tile.voidTile;
+        return TiledSpriteSheet.tileSheet.tiles[tiles[x + y * this.width]];
     }
 }
 

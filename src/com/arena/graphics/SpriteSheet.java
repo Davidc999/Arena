@@ -9,14 +9,16 @@ public class SpriteSheet {
 
     private String path;
     public final int SIZE;
+    public final int TILESIZE;
     public int[] pixels;
     //static File directory = new File("res/textures/spritesheet.png");
-    public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png",32);
-    public static SpriteSheet maleWizard = new SpriteSheet("/textures/malewizard.png",128);
+    public static SpriteSheet tiles = new SpriteSheet("/textures/overworld.png",336, 16);
+    public static SpriteSheet maleWizard = new SpriteSheet("/textures/malewizard.png",128, 16);
 
-    public SpriteSheet(String path, int size){
+    public SpriteSheet(String path, int size, int tileSize){
         this.path = path;
         SIZE = size;
+        TILESIZE = tileSize;
         pixels = new int[SIZE * SIZE];
         load();
     }
