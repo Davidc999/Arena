@@ -3,6 +3,8 @@ package com.arena.entity.mob;
 import com.arena.entity.Entity;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Sprite;
+import com.arena.graphics.SpriteSheet;
+import com.arena.level.tile.Tile;
 
 import static com.arena.entity.Entity.Direction.*;
 
@@ -31,8 +33,12 @@ public abstract class Mob extends Entity {
             animatedSprite.setAnimation(dir);
         }
 
-        if (!collision()) {
+        if (!collision(xChange,yChange)) {
             x += xChange;
+            animatedSprite.start();
+        }
+
+        if (!collision(xChange,yChange)) {
             y += yChange;
             animatedSprite.start();
         }
@@ -42,8 +48,16 @@ public abstract class Mob extends Entity {
 
     }
 
-    public boolean collision(){
+    public boolean collision(int xChange, int yChange){
+        for(int c=0; c<4; c++)
+        {
+            if(level.getTile((x+ (c%2)*0 + xChange)/ SpriteSheet.tiles.TILESIZE,(y+(c/2)*10+yChange)/SpriteSheet.tiles.TILESIZE).solid) {
+                return true;
+            }
+        }
+
         return false;
+
     }
 
     public void render(){}

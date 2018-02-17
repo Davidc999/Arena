@@ -4,19 +4,21 @@ import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
 import com.arena.input.KeyBoard;
+import com.arena.level.Level;
 
 public class Player extends Mob{
 
     private KeyBoard input;
 
-    public Player(KeyBoard input, AnimatedSprite animatedSprite){
+    public Player(KeyBoard input, AnimatedSprite animatedSprite, Level level){
         this.input = input;
         this.animatedSprite = animatedSprite;
     }
 
-    public Player(int x, int y, KeyBoard input){
+    public Player(int x, int y, KeyBoard input, AnimatedSprite animatedSprite){
         this.x = x;
         this.y = y;
+        this.animatedSprite = animatedSprite;
         this.input = input;
     }
 
