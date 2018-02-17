@@ -57,7 +57,7 @@ public abstract class Mob extends Entity {
     }
 
     public void shoot(double dir){
-        Projectile projectile = new WizardProjectile(x, y, dir);
+        Projectile projectile = new WizardProjectile(x - animatedSprite.SIZE/2, y-animatedSprite.SIZE/2, dir);
         projectileList.add(projectile);
         level.addEntity(projectile);
     }
