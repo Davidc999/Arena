@@ -1,10 +1,16 @@
 package com.arena.entity.mob;
 
 import com.arena.entity.Entity;
+import com.arena.entity.Projectile.Projectile;
+import com.arena.entity.Projectile.WizardProjectile;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Sprite;
 import com.arena.graphics.SpriteSheet;
+import com.arena.input.Mouse;
 import com.arena.level.tile.Tile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.arena.entity.Entity.Direction.*;
 
@@ -13,6 +19,8 @@ public abstract class Mob extends Entity {
     protected AnimatedSprite animatedSprite;
     protected Direction dir = UP;
     protected boolean moving = false;
+
+    protected List<Projectile> projectileList = new ArrayList<>();
 
     public void move(int xChange, int yChange){
         Direction newDir = DOWN;
@@ -46,6 +54,12 @@ public abstract class Mob extends Entity {
 
     public void update(){
 
+    }
+
+    public void shoot(double dir){
+        Projectile projectile = new WizardProjectile(x, y, dir);
+        projectileList.add(projectile);
+        level.addEntity(projectile);
     }
 
     public boolean collision(int xChange, int yChange){

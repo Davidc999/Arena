@@ -1,9 +1,11 @@
 package com.arena.entity.mob;
 
+import com.arena.Game;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
 import com.arena.input.KeyBoard;
+import com.arena.input.Mouse;
 import com.arena.level.Level;
 
 public class Player extends Mob{
@@ -41,8 +43,19 @@ public class Player extends Mob{
 
         animatedSprite.update();
 
+        updateShooting();
+
     }
-    
+
+    public void updateShooting(){
+        if(Mouse.getButton() == 1)
+        {
+            double dx = Mouse.getX() - Game.getWindowWidth()/2;
+            double dy = Mouse.getY() - Game.getWindowHeight()/2;
+            shoot(Math.atan2(dy,dx));
+        }
+    }
+
     public void render(Screen screen){
         screen.renderPlayer(x - animatedSprite.SIZE/2,y - animatedSprite.SIZE/2, animatedSprite);
     }

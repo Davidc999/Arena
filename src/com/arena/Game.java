@@ -5,11 +5,14 @@ import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
 import com.arena.input.KeyBoard;
+import com.arena.input.Mouse;
 import com.arena.level.Level;
 import com.arena.level.RandomLevel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -18,9 +21,9 @@ public class Game extends Canvas implements Runnable{
 
     private static final long serialVersionUID =1L;
 
-    public static int width = 500;
-    public static int height = width / 16 * 9;
-    public static int scale = 3;
+    private static int width = 500;
+    private static int height = width / 16 * 9;
+    private static int scale = 3;
 
     private Thread thread;
     private JFrame frame;
@@ -36,6 +39,14 @@ public class Game extends Canvas implements Runnable{
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
+    public static int getWindowWidth(){
+        return width*scale;
+    }
+
+    public static int getWindowHeight(){
+        return height*scale;
+    }
+
     public Game(){
         Dimension size = new Dimension(width * scale, height * scale);
         setPreferredSize(size);
@@ -50,6 +61,10 @@ public class Game extends Canvas implements Runnable{
         player = new  Player(25*16,25*16,keyBoard, AnimatedSprite.player);
         player.init(level);
         addKeyListener(keyBoard);
+
+        Mouse mouse = new Mouse();
+        addMouseListener(mouse);
+        addMouseMotionListener(mouse);
     }
 
     public synchronized void start(){
@@ -108,6 +123,7 @@ public class Game extends Canvas implements Runnable{
     public void update(){
         keyBoard.update();
         player.update();
+        level.update();
     }
 
 
