@@ -57,7 +57,7 @@ public class Game extends Canvas implements Runnable{
         //setting the keyboard
         keyBoard = new KeyBoard();
         //level = new RandomLevel(64,64);
-        level = new Level(50,50,"res\\levels\\map1.map");
+        level = new Level(50,50,"res/levels/map1.map");
         player = new  Player(25*16,25*16,keyBoard, AnimatedSprite.player);
         player.init(level);
         addKeyListener(keyBoard);

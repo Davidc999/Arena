@@ -56,7 +56,7 @@ public class Level {
 
             }
             catch (IOException x){
-                System.out.println("Can't save for some reason!");
+                System.out.println("Can't load for some reason!");
             }
 
     }
