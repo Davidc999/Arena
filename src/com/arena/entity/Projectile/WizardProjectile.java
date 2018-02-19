@@ -1,20 +1,22 @@
 package com.arena.entity.Projectile;
 
+import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
 
 public class WizardProjectile extends Projectile {
-    public WizardProjectile(int x, int y, double dir) {
-        super(x, y, dir);
+    public WizardProjectile(int x, int y, double dir, AnimatedSprite sprite) {
+        super(x, y, dir, sprite);
         range = 200;
         damage = 20;
         rateOfFire = 15;
-        speed = 15;
+        speed = 10;
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);
     }
     
     public void update(){
+        sprite.update();
         move();
 
     }
@@ -26,7 +28,7 @@ public class WizardProjectile extends Projectile {
 
 
     public void render(Screen screen){
-        screen.renderPlayer(x,y, Sprite.arrow);
+        screen.renderPlayer(x,y, sprite);
 
     }
 }

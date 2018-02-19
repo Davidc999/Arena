@@ -11,6 +11,7 @@ public class AnimatedSprite extends Sprite{
     private final int animationLength;
 
     public static AnimatedSprite player = new AnimatedSprite(32,0,0,SpriteSheet.maleWizard,10,3 );
+    public static AnimatedSprite arrow = new AnimatedSprite(32,0,0,SpriteSheet.arrow,10,4 );
 
     public AnimatedSprite(int size, int x, int y, SpriteSheet sheet, int updateDelay, int animationLength){
         super(size, x, y, sheet);

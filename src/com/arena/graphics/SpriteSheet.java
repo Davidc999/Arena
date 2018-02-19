@@ -14,7 +14,7 @@ public class SpriteSheet {
     //static File directory = new File("res/textures/spritesheet.png");
     public static SpriteSheet tiles = new SpriteSheet("/textures/overworld.png",336, 16);
     public static SpriteSheet maleWizard = new SpriteSheet("/textures/malewizard.png",128, 16);
-    public static SpriteSheet arrow = new SpriteSheet("/textures/Arrow.png",64, 32);
+    public static SpriteSheet arrow = new SpriteSheet("/textures/Arrow.png",128, 32);
 
     public SpriteSheet(String path, int size, int tileSize){
         this.path = path;

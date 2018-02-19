@@ -57,7 +57,18 @@ public abstract class Mob extends Entity {
     }
 
     public void shoot(double dir){
-        Projectile projectile = new WizardProjectile(x - animatedSprite.SIZE/2, y-animatedSprite.SIZE/2, dir);
+        Projectile projectile = new WizardProjectile(x - animatedSprite.SIZE/2, y-animatedSprite.SIZE/2, dir, AnimatedSprite.arrow);
+
+        Entity.Direction animDir;
+        if(dir<0.785 && dir>=-0.785)
+        {animDir = RIGHT;}
+        else if(dir<-0.785 && dir>=-2.355)
+        {animDir = UP;}
+        else if(dir<2.355 && dir>=0.785)
+        {animDir = DOWN;}
+        else
+        {animDir = LEFT;}
+        projectile.setAnimationDir(animDir);
         projectileList.add(projectile);
         level.addEntity(projectile);
     }
