@@ -62,8 +62,16 @@ public class Level {
     }
 
     public void update(){
+
         for (int i= 0 ; i < entityList.size(); i++ ){
-            entityList.get(i).update();
+            Entity e = entityList.get(i);
+            if(e.isRemoved())
+            {
+                entityList.remove(e);
+            }
+            else {
+                e.update();
+            }
         }
 
     }

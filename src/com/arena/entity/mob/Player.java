@@ -1,6 +1,7 @@
 package com.arena.entity.mob;
 
 import com.arena.Game;
+import com.arena.entity.Projectile.Projectile;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
@@ -46,6 +47,7 @@ public class Player extends Mob{
         updateShooting();
 
     }
+
 
     public void updateShooting(){
         if(Mouse.getButton() == 1)

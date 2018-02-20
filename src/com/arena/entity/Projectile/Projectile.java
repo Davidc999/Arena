@@ -9,8 +9,9 @@ public abstract class Projectile extends Entity {
     protected final int xOrigin, yOrigin;
     protected double angle;
     protected AnimatedSprite sprite;
-    protected double nx, ny;
-    protected double speed, rateOfFire, range, damage;
+    protected double nx, ny, x, y;
+    protected double speed, range, damage, distanceTraveled;
+    protected static int rateOfFire;
 
     public Projectile(int x, int y, double dir, AnimatedSprite sprite){
         xOrigin = x;
@@ -26,5 +27,8 @@ public abstract class Projectile extends Entity {
         sprite.setAnimation(direction);
         sprite.start();
     }
+
+    public static double getRateOfFire()
+    {return rateOfFire;}
 
 }

@@ -19,8 +19,7 @@ public abstract class Mob extends Entity {
     protected AnimatedSprite animatedSprite;
     protected Direction dir = UP;
     protected boolean moving = false;
-
-    protected List<Projectile> projectileList = new ArrayList<>();
+    protected int projectileTimer = 0;
 
     public void move(int xChange, int yChange){
         Direction newDir = DOWN;
@@ -57,20 +56,25 @@ public abstract class Mob extends Entity {
     }
 
     public void shoot(double dir){
-        Projectile projectile = new WizardProjectile(x - animatedSprite.SIZE/2, y-animatedSprite.SIZE/2, dir, AnimatedSprite.arrow);
+        if(projectileTimer < WizardProjectile.getRateOfFire())
+        { projectileTimer += 1;}
+        else {
+            projectileTimer = 0;
+            Projectile projectile = new WizardProjectile(x - animatedSprite.SIZE / 2, y - animatedSprite.SIZE / 2, dir, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 10, 4));
 
-        Entity.Direction animDir;
-        if(dir<0.785 && dir>=-0.785)
-        {animDir = RIGHT;}
-        else if(dir<-0.785 && dir>=-2.355)
-        {animDir = UP;}
-        else if(dir<2.355 && dir>=0.785)
-        {animDir = DOWN;}
-        else
-        {animDir = LEFT;}
-        projectile.setAnimationDir(animDir);
-        projectileList.add(projectile);
-        level.addEntity(projectile);
+            Entity.Direction animDir;
+            if (dir < 0.785 && dir >= -0.785) {
+                animDir = RIGHT;
+            } else if (dir < -0.785 && dir >= -2.355) {
+                animDir = UP;
+            } else if (dir < 2.355 && dir >= 0.785) {
+                animDir = DOWN;
+            } else {
+                animDir = LEFT;
+            }
+            projectile.setAnimationDir(animDir);
+            level.addEntity(projectile);
+        }
     }
 
     public boolean collision(int xChange, int yChange){
