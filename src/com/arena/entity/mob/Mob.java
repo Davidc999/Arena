@@ -57,10 +57,10 @@ public abstract class Mob extends Entity {
 
     public void shoot(double dir){
         if(projectileTimer < WizardProjectile.getRateOfFire())
-        { projectileTimer += 1;}
+        { }
         else {
             projectileTimer = 0;
-            Projectile projectile = new WizardProjectile(x - animatedSprite.SIZE , y - animatedSprite.SIZE, dir, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 10, 4));
+            Projectile projectile = new WizardProjectile(x - animatedSprite.SIZE / 2, y - animatedSprite.SIZE / 2, dir, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 3, 4));
             projectile.init(level);
 
             Entity.Direction animDir;
@@ -77,7 +77,8 @@ public abstract class Mob extends Entity {
             level.addEntity(projectile);
         }
     }
-// Note that going over c%2 and c/2 actually looks at all corners of out sprite.
+
+    // Note that going over c%2 and c/2 actually looks at all corners of out sprite.
 // The amount we multiply by sets a distance from the center of the sprite that we want to check for.
 // This is sort of a 'bounding box'. The reason c%2 has 0, for example is that the sprite connecting the ocean
 // And the grass has half of it looking like grass, and so we actually allow our player sprite to walk onto that tile

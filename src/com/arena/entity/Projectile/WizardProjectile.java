@@ -2,15 +2,14 @@ package com.arena.entity.Projectile;
 
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
-import com.arena.graphics.Sprite;
 
 public class WizardProjectile extends Projectile {
     public WizardProjectile(int x, int y, double dir, AnimatedSprite sprite) {
         super(x, y, dir, sprite);
-        range = 100;
+        range = 200;
         damage = 20;
-        rateOfFire = 2;
-        speed = 8;
+        rateOfFire = 20;
+        speed = 5;
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);
     }
@@ -24,14 +23,16 @@ public class WizardProjectile extends Projectile {
     }
 
     private void move() {
-        x += nx;
-        y += ny;
-        distanceTraveled += speed;
+        if(!level.tileCollision(x,y,sprite.SIZE,sprite.SIZE,nx,ny)) {
+            x += nx;
+            y += ny;
+            distanceTraveled += speed;
+        }
     }
 
 
     public void render(Screen screen){
-        screen.renderPlayer((int)x,(int)y, sprite);
+        screen.renderSprite((int)x,(int)y, sprite);
 
     }
 }

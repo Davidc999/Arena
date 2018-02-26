@@ -30,26 +30,16 @@ public class Screen {
         }
     }
 
-    public void renderTile(int xp, int yp, Tile tile) {
-        xp -= xOffset;
-        yp -= yOffset;
-        for (int y = 0; y < tile.sprite.SIZE; y++) {
-            int ya = y + yp; // yp being yPixel, , the tiles offset in pixels. y is inside the tiles.
-            for (int x = 0; x < tile.sprite.SIZE; x++) {
-                int xa = x + xp; // xp being xPos, , the tiles offset in pixels. x is inside the tiles.
-                if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
-                pixels[xa+ya*width] = tile.sprite.pixels[x+y*tile.sprite.SIZE];
-            }
-        }
-    }
-
-    public void renderPlayer(int xp, int yp, Sprite sprite) {
+    public void renderSprite(int xp, int yp, Sprite sprite) {
+        // This method renders a sprite which is at the absolute pixel coordinate (xp,yp) ON THE MAP
+        // xOffset and yOffset are the coordinates of the left corner of the CAMERA, and they are removed
+        // so that the position of the sprite can be drawn relative to the camera.
         xp -= xOffset;
         yp -= yOffset;
         for (int y = 0; y < sprite.SIZE; y++) {
-            int ya = y + yp; // yp being yPixel, the tiles offset in pixels. y is inside the tiles.
+            int ya = y + yp; // yp being yPixel, the sprite's offset in pixels on the map. y is inside the sprite.
             for (int x = 0; x < sprite.SIZE; x++) {
-                int xa = x + xp; // xp being xPixel, , the tiles offset in pixels. x is inside the tiles.
+                int xa = x + xp; // xp being xPixel, , the sprite's offset in pixels on the map. x is inside the sprite.
                 if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
                 int pixelColor = sprite.pixels[x+y*sprite.SIZE];
                 if(pixelColor != Sprite.alphaColor) pixels[xa+ya*width] = pixelColor;
