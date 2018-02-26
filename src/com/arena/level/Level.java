@@ -2,6 +2,7 @@ package com.arena.level;
 
 import com.arena.entity.Entity;
 import com.arena.graphics.Screen;
+import com.arena.graphics.SpriteSheet;
 import com.arena.graphics.TiledSpriteSheet;
 import com.arena.level.tile.Tile;
 
@@ -105,6 +106,18 @@ public class Level {
     public Tile getTile(int x, int y){
         if(x<0 || x >= this.width || y<0 || y >= this.height) { return Tile.voidTile; } // Handle walking out of bounds
         return TiledSpriteSheet.tileSheet.tiles[tiles[x + y * this.width]];
+    }
+
+    public boolean tileCollision(double entityX, double entityY,double entityHeight, int entityWidth, double xChange, double yChange){
+        for(int c=0; c<4; c++)
+        {
+            double xTarget = (entityX+ (c%2)*entityWidth + xChange)/ SpriteSheet.tiles.TILESIZE;
+            double yTarget = (entityY+(c/2)*entityHeight+yChange)/SpriteSheet.tiles.TILESIZE;
+            if(getTile((int)xTarget,(int)yTarget).solid) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
