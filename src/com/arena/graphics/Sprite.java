@@ -11,9 +11,13 @@ public class Sprite {
 
 
     public static int alphaColor = 0xffbadbad;
+
+    // Tile sprites
     public static Sprite grass = new Sprite(16,1, 1, SpriteSheet.tiles);
     public static Sprite voidSprite = new Sprite(16,0x1B87E0);
 
+    // Praticle sprites
+    public static Sprite particle_normal = new Sprite(3,0xAAAAAA);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet){
         SIZE = size;

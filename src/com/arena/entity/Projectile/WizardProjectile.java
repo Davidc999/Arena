@@ -1,5 +1,6 @@
 package com.arena.entity.Projectile;
 
+import com.arena.entity.particle.Particle;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 
@@ -27,6 +28,12 @@ public class WizardProjectile extends Projectile {
             x += nx;
             y += ny;
             distanceTraveled += speed;
+        }
+        else
+        {
+            remove();
+            Particle p = new Particle((int)x,(int)y,60,4);
+            level.addEntity(p);
         }
     }
 
