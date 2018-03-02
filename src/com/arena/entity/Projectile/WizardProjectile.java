@@ -32,7 +32,7 @@ public class WizardProjectile extends Projectile {
         else
         {
             remove();
-            Particle p = new Particle((int)x,(int)y,60,4);
+            Particle p = new Particle((int)x+sprite.SIZE/2,(int)y + sprite.SIZE/2,60,4);
             level.addEntity(p);
         }
     }

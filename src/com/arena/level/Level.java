@@ -100,6 +100,7 @@ public class Level {
     }
 
     public void addEntity(Entity entity){
+        entity.init(this);
         entityList.add(entity);
     }
 
