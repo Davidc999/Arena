@@ -24,7 +24,7 @@ public class WizardProjectile extends Projectile {
     }
 
     private void move() {
-        if(!level.tileCollision(x,y,sprite.SIZE,sprite.SIZE,nx,ny)) {
+        if(!level.tileCollision(x,y,sprite.WIDTH,sprite.HEIGHT,nx,ny)) {
             x += nx;
             y += ny;
             distanceTraveled += speed;
@@ -32,7 +32,7 @@ public class WizardProjectile extends Projectile {
         else
         {
             remove();
-            Particle p = new Particle((int)x+sprite.SIZE/2,(int)y + sprite.SIZE/2,60,4);
+            Particle p = new Particle((int)x+sprite.WIDTH/2,(int)y + sprite.HEIGHT/2,60,4);
             level.addEntity(p);
         }
     }

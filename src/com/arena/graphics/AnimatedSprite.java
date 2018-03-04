@@ -33,7 +33,7 @@ public class AnimatedSprite extends Sprite{
     public void update(){
         if(started) {
             if (updateCount == 0) {
-                x = (x + SIZE) % (animationLength*SIZE);
+                x = (x + WIDTH) % (animationLength*WIDTH);
                 load();
             }
             updateCount = (updateCount + 1) % updateDelay;
@@ -41,7 +41,7 @@ public class AnimatedSprite extends Sprite{
     }
 
     public void setAnimation(Entity.Direction direction){
-        y = SIZE * direction.ordinal();
+        y = HEIGHT * direction.ordinal();
         updateCount = 0;
     }
 

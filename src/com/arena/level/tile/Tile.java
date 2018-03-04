@@ -17,7 +17,7 @@ public class Tile {
     }
 
     public void render(int x, int y, Screen screen){
-        screen.renderSprite(x * sprite.SIZE, y * sprite.SIZE,this.sprite);
+        screen.renderSprite(x * sprite.WIDTH, y * sprite.HEIGHT,this.sprite);
     }
 
 }

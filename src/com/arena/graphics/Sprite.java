@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Sprite {
 
-    public final int SIZE;
+    public final int WIDTH,HEIGHT;
     protected int x, y;
     public int[] pixels;
     private SpriteSheet sheet;
@@ -19,31 +19,42 @@ public class Sprite {
     // Praticle sprites
     public static Sprite particle_normal = new Sprite(3,0xAAAAAA);
 
-    public Sprite(int size, int x, int y, SpriteSheet sheet){
-        SIZE = size;
-        pixels = new int[SIZE * SIZE];
-        this.x = x * size;
-        this.y = y * size;
+    public Sprite(int squareSize, int x, int y, SpriteSheet sheet){
+        WIDTH = squareSize;
+        HEIGHT = squareSize;
+        pixels = new int[squareSize * squareSize];
+        this.x = x * squareSize;
+        this.y = y * squareSize;
         this.sheet = sheet;
         load();
     }
 
-    public Sprite(int size, int colour){
-        SIZE = size;
-        pixels = new int[SIZE * SIZE];
+    public Sprite(int width, int height, int x, int y, SpriteSheet sheet){
+        WIDTH = width;
+        HEIGHT = height;
+        pixels = new int[width * height];
+        this.x = x * width;
+        this.y = y * height;
+        this.sheet = sheet;
+        load();
+    }
+
+    public Sprite(int squareSize, int colour){
+        WIDTH = HEIGHT = squareSize;
+        pixels = new int[squareSize * squareSize];
         setColour(colour);
     }
 
     private void setColour(int colour){
-        for (int i = 0; i < SIZE*SIZE; i++){
+        for (int i = 0; i < WIDTH*HEIGHT; i++){
         pixels[i] = colour;
         }
     }
 
     protected void load(){
-        for (int y =0 ; y<SIZE; y++){
-            for (int x =0 ; x<SIZE; x++) {
-                pixels[x + y * SIZE] = sheet.pixels[x + this.x + (y + this.y) * sheet.SIZE];
+        for (int y =0 ; y<HEIGHT; y++){
+            for (int x =0 ; x<WIDTH; x++) {
+                pixels[x + y * HEIGHT] = sheet.pixels[x + this.x + (y + this.y) * sheet.SIZE];
             }
         }
     }

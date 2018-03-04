@@ -61,6 +61,6 @@ public class Player extends Mob{
     }
 
     public void render(Screen screen){
-        screen.renderSprite(x - animatedSprite.SIZE/2,y - animatedSprite.SIZE/2, animatedSprite);
+        screen.renderSprite(x - animatedSprite.WIDTH/2,y - animatedSprite.HEIGHT/2, animatedSprite);
     }
 }

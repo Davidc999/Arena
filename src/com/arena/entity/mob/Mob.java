@@ -60,7 +60,7 @@ public abstract class Mob extends Entity {
         { }
         else {
             projectileTimer = 0;
-            Projectile projectile = new WizardProjectile(x - animatedSprite.SIZE / 2, y - animatedSprite.SIZE / 2, dir, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 3, 4));
+            Projectile projectile = new WizardProjectile(x - animatedSprite.WIDTH / 2, y - animatedSprite.HEIGHT / 2, dir, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 3, 4));
 
             Entity.Direction animDir;
             if (dir < 0.785 && dir >= -0.785) {
