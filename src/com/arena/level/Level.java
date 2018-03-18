@@ -1,5 +1,6 @@
 package com.arena.level;
 
+import com.arena.GameScreen.GameScreen;
 import com.arena.entity.Entity;
 import com.arena.graphics.Screen;
 import com.arena.graphics.SpriteSheet;
@@ -18,7 +19,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level {
+public class Level extends GameScreen{
 
     protected int width, height;
     protected int[] tiles;
