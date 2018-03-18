@@ -15,5 +15,8 @@ public class MessageBox extends SelectableMenuItem {
     }
 
     public void renderText()
+    {
+
+    }
 
 }
