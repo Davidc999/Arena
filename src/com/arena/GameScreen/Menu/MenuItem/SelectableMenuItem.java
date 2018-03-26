@@ -11,6 +11,12 @@ public abstract class SelectableMenuItem extends MenuItem {
 
     }
 
+    public SelectableMenuItem(int xPos, int yPos, boolean visible, boolean enabled, boolean selectable){
+        super(xPos, yPos, visible, enabled);
+        selectable = false;
+    }
+
+
     public void selectAction()
     {
 
