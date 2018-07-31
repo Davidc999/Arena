@@ -2,6 +2,7 @@ package com.arena.entity.Projectile;
 
 import com.arena.entity.Entity;
 import com.arena.graphics.AnimatedSprite;
+import com.arena.graphics.BoundingBox;
 import com.arena.graphics.Sprite;
 
 public abstract class Projectile extends Entity {
@@ -30,5 +31,9 @@ public abstract class Projectile extends Entity {
 
     public static double getRateOfFire()
     {return rateOfFire;}
+
+    public BoundingBox getCollisionBox(){
+        return sprite.getCollisionBox().translate((int)x,(int)y);
+    }
 
 }

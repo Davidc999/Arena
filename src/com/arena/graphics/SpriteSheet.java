@@ -16,6 +16,7 @@ public class SpriteSheet {
     public static SpriteSheet maleWizard = new SpriteSheet("/textures/malewizard.png",128, 16);
     public static SpriteSheet arrow = new SpriteSheet("/textures/Arrow.png",128, 32);
     public static SpriteSheet msgBox = new SpriteSheet("/textures/msgbox.png",96, 32);
+    public static SpriteSheet flyMonster = new SpriteSheet("/textures/FlyMonster.png",128,32);
 
     public SpriteSheet(String path, int size, int tileSize){
         this.path = path;

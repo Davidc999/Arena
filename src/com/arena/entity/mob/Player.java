@@ -14,34 +14,40 @@ public class Player extends Mob{
 
     public Player(KeyBoard input, AnimatedSprite animatedSprite, Level level){
         this.input = input;
-        this.animatedSprite = animatedSprite;
+        this.sprite = animatedSprite;
+        this.speed = 1;
     }
 
     public Player(int x, int y, KeyBoard input, AnimatedSprite animatedSprite){
         this.x = x;
         this.y = y;
-        this.animatedSprite = animatedSprite;
+        this.sprite = animatedSprite;
         this.input = input;
+        this.speed = 1;
     }
 
     public void update(){
 
+        if(input.buildCastle){
+            level.buildCastleReq(x,y);
+        }
+
         int xa = 0;
         int ya = 0;
 
-        if (input.up) ya--;
-        if (input.down) ya++;
-        if (input.left) xa--;
-        if (input.right) xa++;
+        if (input.up) ya -= speed;
+        if (input.down) ya += speed;
+        if (input.left) xa -= speed;
+        if (input.right) xa += speed;
 
         if (xa != 0 || ya != 0) {
             move(xa, ya);
         }
         else {
-            animatedSprite.stop();
+            sprite.stop();
         }
 
-        animatedSprite.update();
+        sprite.update();
 
         updateShooting();
 
@@ -61,6 +67,6 @@ public class Player extends Mob{
     }
 
     public void render(Screen screen){
-        screen.renderSprite(x - animatedSprite.WIDTH/2,y - animatedSprite.HEIGHT/2, animatedSprite);
+        screen.renderSprite(x - sprite.WIDTH/2,y - sprite.HEIGHT/2, sprite);
     }
 }

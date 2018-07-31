@@ -10,11 +10,11 @@ import java.util.List;
 public class Particle extends Entity{
 
     private List<Particle> particles = new ArrayList<>();
-    private Sprite sprite;
 
     private int life;
 
     protected double xDouble,yDouble,xa, ya;
+
 
     public Particle(int x, int y, int life)
     {
@@ -29,11 +29,34 @@ public class Particle extends Entity{
         this.yDouble = y;
     }
 
+    public Particle(int x, int y, int life, Sprite sprite)
+    {
+        this.x = x;
+        this.y = y;
+        this.life = life;
+        this.sprite = sprite;
+
+        this.xa = random.nextGaussian();
+        this.ya = random.nextGaussian();
+        this.xDouble = x;
+        this.yDouble = y;
+    }
+
     public Particle(int x, int y, int life, int amount){
 
         this(x,y,life); // Note that this does NOT create a new particle, but calls the other constructor just like a regular method. This way we do not discard the first instance created by calling Particle(x,y,life,amount)
         for(int i=0; i < amount-1; i++){
             particles.add(new Particle(x,y,life));
+        }
+        particles.add(this);
+    }
+
+    public Particle(int x, int y, int life, int amount, int color){
+
+        this(x,y,life,new Sprite(3,color)); // Note that this does NOT create a new particle, but calls the other constructor just like a regular method. This way we do not discard the first instance created by calling Particle(x,y,life,amount)
+
+        for(int i=0; i < amount-1; i++){
+            particles.add(new Particle(x,y,life,sprite));
         }
         particles.add(this);
     }
@@ -59,4 +82,5 @@ public class Particle extends Entity{
             screen.renderSprite((int) p.xDouble, (int) p.yDouble, sprite);
         }
     }
+
 }

@@ -1,6 +1,8 @@
 package com.arena;
 
 import com.arena.entity.mob.Player;
+import com.arena.entity.mob.WimpyMonster;
+import com.arena.entity.mob.mobSpawner;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
@@ -57,8 +59,10 @@ public class Game extends Canvas implements Runnable{
         //setting the keyboard
         keyBoard = new KeyBoard();
         //level = new RandomLevel(64,64);
-        level = new Level(50,50,"res/levels/map1.map");
+        level = new Level(50,50,"res/levels/map2.map");
         player = new  Player(25*16,25*16,keyBoard, AnimatedSprite.player);
+        level.addEntity(new mobSpawner(60*4, 28*16, 28*16, 1));
+        //level.addEntity(new WimpyMonster(28*16,28*16));
         player.init(level);
         addKeyListener(keyBoard);
 

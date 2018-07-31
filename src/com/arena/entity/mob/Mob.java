@@ -4,22 +4,19 @@ import com.arena.entity.Entity;
 import com.arena.entity.Projectile.Projectile;
 import com.arena.entity.Projectile.WizardProjectile;
 import com.arena.graphics.AnimatedSprite;
-import com.arena.graphics.Sprite;
+import com.arena.graphics.BoundingBox;
 import com.arena.graphics.SpriteSheet;
-import com.arena.input.Mouse;
-import com.arena.level.tile.Tile;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.arena.entity.Entity.Direction.*;
 
 public abstract class Mob extends Entity {
 
-    protected AnimatedSprite animatedSprite;
-    protected Direction dir = UP;
+    protected AnimatedSprite sprite;
+    protected Direction dir = DOWN;
     protected boolean moving = false;
     protected int projectileTimer = 0;
+    protected int speed;
+    protected int xpLvl, xp;
 
     public void move(int xChange, int yChange){
         Direction newDir = DOWN;
@@ -37,17 +34,17 @@ public abstract class Mob extends Entity {
         }
         if (dir != newDir) {
             dir = newDir;
-            animatedSprite.setAnimation(dir);
+            sprite.setAnimation(dir);
         }
 
         if (!collision(xChange,yChange)) {
             x += xChange;
-            animatedSprite.start();
+            sprite.start();
         }
 
         if (!collision(xChange,yChange)) {
             y += yChange;
-            animatedSprite.start();
+            sprite.start();
         }
     }
 
@@ -60,7 +57,7 @@ public abstract class Mob extends Entity {
         { }
         else {
             projectileTimer = 0;
-            Projectile projectile = new WizardProjectile(x - animatedSprite.WIDTH / 2, y - animatedSprite.HEIGHT / 2, dir, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 3, 4));
+            Projectile projectile = new WizardProjectile(x - sprite.WIDTH / 2, y - sprite.HEIGHT / 2, dir, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 3, 4));
 
             Entity.Direction animDir;
             if (dir < 0.785 && dir >= -0.785) {
@@ -93,5 +90,9 @@ public abstract class Mob extends Entity {
     }
 
     public void render(){}
+
+    public BoundingBox getCollisionBox(){
+        return sprite.getCollisionBox().translate(x,y);
+    }
 
 }

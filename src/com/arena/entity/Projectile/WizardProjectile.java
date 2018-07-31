@@ -1,5 +1,7 @@
 package com.arena.entity.Projectile;
 
+import com.arena.entity.Entity;
+import com.arena.entity.mob.Mob;
 import com.arena.entity.particle.Particle;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
@@ -37,6 +39,12 @@ public class WizardProjectile extends Projectile {
         }
     }
 
+    @Override
+    public void handleCollision(Entity other){
+        if(other instanceof Mob) {
+            remove();
+        }
+    }
 
     public void render(Screen screen){
         screen.renderSprite((int)x,(int)y, sprite);

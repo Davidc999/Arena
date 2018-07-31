@@ -2,6 +2,7 @@ package com.arena.level;
 
 import com.arena.GameScreen.GameScreen;
 import com.arena.entity.Entity;
+import com.arena.entity.mob.Castle;
 import com.arena.graphics.Screen;
 import com.arena.graphics.SpriteSheet;
 import com.arena.graphics.TiledSpriteSheet;
@@ -23,8 +24,10 @@ public class Level extends GameScreen{
 
     protected int width, height;
     protected int[] tiles;
+    protected boolean castleBuilt = false;
+    protected Castle castle;
 
-    private List<Entity> entityList = new ArrayList<>();
+    private ArrayList<Entity> entityList = new ArrayList<>();
 
     public Level( int width, int height){
         this.width = width;
@@ -64,6 +67,15 @@ public class Level extends GameScreen{
     }
 
     public void update(){
+
+        for (int first = 0; first < entityList.size() ; first++){
+            for(int second = first + 1 ; second < entityList.size() ; second++){
+                if(entityList.get(first).isCollidingWith(entityList.get(second))) {
+                    entityList.get(first).handleCollision(entityList.get(second));
+                    entityList.get(second).handleCollision(entityList.get(first));
+                }
+            }
+        }
 
         for (int i= 0 ; i < entityList.size(); i++ ){
             Entity e = entityList.get(i);
@@ -121,5 +133,24 @@ public class Level extends GameScreen{
         }
         return false;
     }
+
+    public void buildCastleReq(int x, int y){
+        if(!castleBuilt) {
+            castle = new Castle(x, y - 32);
+            addEntity(castle);
+            castleBuilt = true;
+        }
+        else{ // TODO: Check if eligible for upgrade and if player is close to the castle...
+            if(castle.isActive())
+                castle.upgrade();
+        }
+
+    }
+
+    public void setCastleBuilt(boolean castleBuilt) {
+        this.castleBuilt = castleBuilt;
+    }
+
+    public boolean getCastleBuilt(){ return castleBuilt;}
 }
 
