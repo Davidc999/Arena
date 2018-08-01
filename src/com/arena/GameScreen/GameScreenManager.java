@@ -50,7 +50,7 @@ public class GameScreenManager {
         {
             currScreen = ((GameScreen)iter.previous());
             if(currScreen.visible) {
-            currScreen.render(screen);
+            currScreen.render(0,0,screen);
             }
 
         }

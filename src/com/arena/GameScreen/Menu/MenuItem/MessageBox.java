@@ -11,11 +11,16 @@ public class MessageBox extends SelectableMenuItem {
     private String text;
     boolean blocking;
 
-    public MessageBox(int xPos, int yPos,int width, int height, boolean enabled, boolean visible, boolean selectable)
+    public MessageBox(int xPos, int yPos,int width, int height, boolean enabled, boolean visible)
     {
-        super(xPos,yPos,enabled,visible, selectable);
+        super(xPos,yPos,enabled,visible);
         this.width = width / 32;
         this.height = height / 32;
+    }
+
+    @Override
+    public void update() {
+
     }
 
     public void render(Screen screen)

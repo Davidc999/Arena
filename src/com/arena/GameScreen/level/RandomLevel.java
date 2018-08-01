@@ -1,6 +1,4 @@
-package com.arena.level;
-
-import com.arena.level.Level;
+package com.arena.GameScreen.level;
 
 import java.util.Random;
 

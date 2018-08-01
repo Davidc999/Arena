@@ -5,24 +5,24 @@ import com.arena.graphics.Sprite;
 
 public abstract class MenuItem {
 
-    boolean visible, enabled;
-    int xPos, yPos;
+    protected boolean visible;
+    protected int xPos, yPos;
 
-    public MenuItem(int xPos, int yPos, boolean visible, boolean enabled){
+    public MenuItem(int xPos, int yPos, boolean visible){
         this.xPos = xPos;
         this.yPos = yPos;
         this.visible = visible;
-        this.enabled = enabled;
     }
 
-    public void update()
-    {
+    abstract public void update();
 
+    abstract public void render(Screen screen);
+
+    public boolean isVisible() {
+        return visible;
     }
 
-    public void render(Screen screen)
-    {
-
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
-
 }

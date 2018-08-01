@@ -1,9 +1,5 @@
 package com.arena.graphics;
 
-import com.arena.entity.Entity;
-
-import java.io.File;
-
 public class Sprite {
 
     public final int WIDTH,HEIGHT;

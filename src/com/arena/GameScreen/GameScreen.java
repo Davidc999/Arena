@@ -5,16 +5,18 @@ import com.arena.graphics.Screen;
 public abstract class GameScreen {
 
     public boolean visible, enabled;
+    protected int xScroll, yScroll;
 
 
-    public void render(Screen screen)
-    {
+    abstract public void render(int xScroll, int yScroll,Screen screen);
 
+    abstract public void update();
+
+    public int getxScroll() {
+        return xScroll;
     }
 
-    public void update()
-    {
-
+    public int getyScroll() {
+        return yScroll;
     }
-
 }

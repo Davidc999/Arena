@@ -1,20 +1,15 @@
 package com.arena;
 
 import com.arena.entity.mob.Player;
-import com.arena.entity.mob.WimpyMonster;
 import com.arena.entity.mob.mobSpawner;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
-import com.arena.graphics.Sprite;
 import com.arena.input.KeyBoard;
 import com.arena.input.Mouse;
-import com.arena.level.Level;
-import com.arena.level.RandomLevel;
+import com.arena.GameScreen.level.Level;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -36,7 +31,7 @@ public class Game extends Canvas implements Runnable{
 
     private Screen screen;
 
-    private Player player;
+    public static Player player;
 
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
@@ -63,7 +58,9 @@ public class Game extends Canvas implements Runnable{
         player = new  Player(25*16,25*16,keyBoard, AnimatedSprite.player);
         level.addEntity(new mobSpawner(60*4, 28*16, 28*16, 1));
         //level.addEntity(new WimpyMonster(28*16,28*16));
-        player.init(level);
+
+        level.addEntity(player);
+        //player.init(level);
         addKeyListener(keyBoard);
 
         Mouse mouse = new Mouse();

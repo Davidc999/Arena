@@ -1,21 +1,22 @@
 package com.arena.entity.mob;
 
-import com.arena.entity.Entity;
+import com.arena.entity.CollidableEntity;
+import com.arena.graphics.BoundingBox;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
 import com.arena.graphics.SpriteSheet;
 
-public class Castle extends Entity{
+public class Castle extends Mob {
 
     private int buildTimer;
-    private int powerLevel;
     private boolean active;
+    Sprite sprite;
 
     public Castle(int x, int y){
         this.x = x;
         this.y = y;
-        powerLevel = 0;
-        buildTimer = 60*(5 + powerLevel);
+        xpLvl = 0;
+        buildTimer = 60*(5 + xpLvl);
         active = false;
         sprite = new Sprite(16,19,0, SpriteSheet.tiles);
         //sprite.effectPaint(0xFF111111);
@@ -30,7 +31,7 @@ public class Castle extends Entity{
     public void update() {
         if(buildTimer > 0) {
             buildTimer--;
-            sprite.restore(1 - (double)buildTimer / (60 * (5 + powerLevel)));
+            sprite.restore(1 - (double)buildTimer / (60 * (5 + xpLvl)));
             if(buildTimer == 0)
                 active = true;
         }
@@ -38,8 +39,8 @@ public class Castle extends Entity{
     }
 
     public void upgrade(){
-        powerLevel++;
-        buildTimer = 60*(5 + powerLevel);
+        xpLvl++;
+        buildTimer = 60*(5 + xpLvl);
         active = false;
         sprite = new Sprite(16,18,0, SpriteSheet.tiles);
         //sprite.effectPaint(0xFF111111);
@@ -57,5 +58,10 @@ public class Castle extends Entity{
     public void render(Screen screen){
         screen.renderSprite(x - sprite.WIDTH/2,y - sprite.HEIGHT/2, sprite);
     }
+
+    public BoundingBox getCollisionBox(){
+        return sprite.getCollisionBox().translate(x,y);
+    }
+
 
 }

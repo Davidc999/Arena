@@ -2,11 +2,12 @@ package com.arena.entity.mob;
 
 import com.arena.Game;
 import com.arena.entity.Projectile.WizardProjectile;
+import com.arena.entity.particle.Particle;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.input.KeyBoard;
 import com.arena.input.Mouse;
-import com.arena.level.Level;
+import com.arena.GameScreen.level.Level;
 
 public class Player extends Mob{
 
@@ -68,5 +69,16 @@ public class Player extends Mob{
 
     public void render(Screen screen){
         screen.renderSprite(x - sprite.WIDTH/2,y - sprite.HEIGHT/2, sprite);
+    }
+
+    public void addXP(int xp){
+        this.xp += xp;
+        if(this.xp >= 5 * Math.pow(xpLvl,2))
+            levelUp();
+    }
+
+    private void levelUp(){
+        xpLvl++;
+        level.addEntity(new Particle(x, y,130,30,0xffffff00));
     }
 }

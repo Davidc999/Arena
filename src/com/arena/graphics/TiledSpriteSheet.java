@@ -1,6 +1,6 @@
 package com.arena.graphics;
 
-import com.arena.level.tile.Tile;
+import com.arena.GameScreen.level.tile.Tile;
 
 
 import java.util.Arrays;

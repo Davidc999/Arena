@@ -1,6 +1,6 @@
 package com.arena.entity.mob;
 
-import com.arena.entity.Entity;
+import com.arena.entity.CollidableEntity;
 import com.arena.entity.Projectile.Projectile;
 import com.arena.entity.Projectile.WizardProjectile;
 import com.arena.graphics.AnimatedSprite;
@@ -9,14 +9,14 @@ import com.arena.graphics.SpriteSheet;
 
 import static com.arena.entity.Entity.Direction.*;
 
-public abstract class Mob extends Entity {
+public abstract class Mob extends CollidableEntity {
 
     protected AnimatedSprite sprite;
     protected Direction dir = DOWN;
     protected boolean moving = false;
     protected int projectileTimer = 0;
     protected int speed;
-    protected int xpLvl, xp;
+    protected int xpLvl = 1, xp =0;
 
     public void move(int xChange, int yChange){
         Direction newDir = DOWN;
@@ -57,9 +57,9 @@ public abstract class Mob extends Entity {
         { }
         else {
             projectileTimer = 0;
-            Projectile projectile = new WizardProjectile(x - sprite.WIDTH / 2, y - sprite.HEIGHT / 2, dir, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 3, 4));
+            Projectile projectile = new WizardProjectile(x - sprite.WIDTH / 2, y - sprite.HEIGHT / 2, dir, this, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 3, 4));
 
-            Entity.Direction animDir;
+            CollidableEntity.Direction animDir;
             if (dir < 0.785 && dir >= -0.785) {
                 animDir = RIGHT;
             } else if (dir < -0.785 && dir >= -2.355) {
@@ -95,4 +95,15 @@ public abstract class Mob extends Entity {
         return sprite.getCollisionBox().translate(x,y);
     }
 
+    public void addXP(int xp){
+        xp += xp;
+    }
+
+    public int getXpLevel(){
+        return xpLvl;
+    }
+
+    public int getXp() {
+        return xp;
+    }
 }

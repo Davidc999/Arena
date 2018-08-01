@@ -1,9 +1,7 @@
-package com.arena.level.tile;
+package com.arena.GameScreen.level.tile;
 
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
-
-import java.util.Spliterator;
 
 public class GrassTile extends Tile {
 

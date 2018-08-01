@@ -1,6 +1,6 @@
 package com.arena.graphics;
 
-import com.arena.entity.Entity;
+import com.arena.entity.CollidableEntity;
 
 public class AnimatedSprite extends Sprite{
 
@@ -23,10 +23,10 @@ public class AnimatedSprite extends Sprite{
         this.animationLength = animationLength;
         collisionBox = new BoundingBox[4];
         for(int i=0; i<4; i++)
-            setColisionBox(Entity.Direction.values()[i],0,0,size,size);
+            setColisionBox(CollidableEntity.Direction.values()[i],0,0,size,size);
     }
 
-    public void setColisionBox(Entity.Direction dir, int x, int y, int height, int width){
+    public void setColisionBox(CollidableEntity.Direction dir, int x, int y, int height, int width){
         collisionBox[dir.ordinal()] = new BoundingBox(x,y,height,width);
     }
 
@@ -48,7 +48,7 @@ public class AnimatedSprite extends Sprite{
         }
     }
 
-    public void setAnimation(Entity.Direction direction){
+    public void setAnimation(CollidableEntity.Direction direction){
         y = HEIGHT * direction.ordinal();
         updateCount = 0;
     }

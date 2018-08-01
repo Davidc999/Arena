@@ -1,7 +1,5 @@
 package com.arena.graphics;
 
-import com.arena.level.tile.Tile;
-
 import java.util.Random;
 
 public class Screen {
@@ -45,6 +43,15 @@ public class Screen {
                 if(pixelColor != Sprite.alphaColor) pixels[xa+ya*width] = pixelColor;
             }
         }
+    }
+
+    public void renderRectangle(int xp, int yp, int rectHeight, int rectWidth, int color){
+        for(int currY = yp; currY < yp+rectHeight; currY++){
+            for(int currX = xp; currX < xp+rectWidth; currX++){
+                pixels[currX + currY * this.width] = color;
+            }
+        }
+
     }
 
     public void setOffset(int xOffset, int yOffset){

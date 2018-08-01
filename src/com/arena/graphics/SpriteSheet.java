@@ -17,6 +17,8 @@ public class SpriteSheet {
     public static SpriteSheet arrow = new SpriteSheet("/textures/Arrow.png",128, 32);
     public static SpriteSheet msgBox = new SpriteSheet("/textures/msgbox.png",96, 32);
     public static SpriteSheet flyMonster = new SpriteSheet("/textures/FlyMonster.png",128,32);
+    public static SpriteSheet wimpyProjectile = new SpriteSheet("/textures/wimpyProjectile.png",16,16);
+    public static SpriteSheet castleHUDImage = new SpriteSheet("/textures/castlepic.png",36,36);
 
     public SpriteSheet(String path, int size, int tileSize){
         this.path = path;

@@ -1,11 +1,12 @@
 package com.arena.entity.Projectile;
 
+import com.arena.entity.CollidableEntity;
 import com.arena.entity.Entity;
+import com.arena.entity.mob.Mob;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.BoundingBox;
-import com.arena.graphics.Sprite;
 
-public abstract class Projectile extends Entity {
+public abstract class Projectile extends CollidableEntity {
 
     protected final int xOrigin, yOrigin;
     protected double angle;
@@ -13,17 +14,19 @@ public abstract class Projectile extends Entity {
     protected double nx, ny, x, y;
     protected double speed, range, damage, distanceTraveled;
     protected static int rateOfFire;
+    protected Mob owner;
 
-    public Projectile(int x, int y, double dir, AnimatedSprite sprite){
+    public Projectile(int x, int y, double dir, Mob owner, AnimatedSprite sprite){
         xOrigin = x;
         yOrigin = y;
         angle = dir;
         this.x = x;
         this.y = y;
         this.sprite = sprite;
+        this.owner = owner;
     }
 
-    public void setAnimationDir(Entity.Direction direction)
+    public void setAnimationDir(CollidableEntity.Direction direction)
     {
         sprite.setAnimation(direction);
         sprite.start();
@@ -36,4 +39,7 @@ public abstract class Projectile extends Entity {
         return sprite.getCollisionBox().translate((int)x,(int)y);
     }
 
+    public Mob getOwner() {
+        return owner;
+    }
 }

@@ -1,24 +1,23 @@
 package com.arena.entity.Projectile;
 
 import com.arena.entity.CollidableEntity;
-import com.arena.entity.Entity;
 import com.arena.entity.mob.Mob;
-import com.arena.entity.mob.Player;
 import com.arena.entity.particle.Particle;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 
-public class WizardProjectile extends Projectile {
-    public WizardProjectile(int x, int y, double dir, Mob owner, AnimatedSprite sprite) {
+public class WimpyProjectile extends Projectile{
+
+    public WimpyProjectile(int x, int y, double dir, Mob owner, AnimatedSprite sprite) {
         super(x, y, dir, owner, sprite);
         range = 200;
-        damage = 20;
+        damage = 5;
         rateOfFire = 20;
         speed = 5;
         nx = speed * Math.cos(angle);
         ny = speed * Math.sin(angle);
     }
-    
+
     public void update(){
         sprite.update();
         move();
@@ -42,13 +41,12 @@ public class WizardProjectile extends Projectile {
     }
 
     public void handleCollision(CollidableEntity other){
-        if(other instanceof Mob && !(other instanceof Player)) {
-            remove();
-        }
+
     }
 
     public void render(Screen screen){
         screen.renderSprite((int)x,(int)y, sprite);
 
     }
+
 }

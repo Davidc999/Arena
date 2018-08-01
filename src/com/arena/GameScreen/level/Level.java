@@ -1,24 +1,22 @@
-package com.arena.level;
+package com.arena.GameScreen.level;
 
 import com.arena.GameScreen.GameScreen;
+import com.arena.entity.CollidableEntity;
 import com.arena.entity.Entity;
 import com.arena.entity.mob.Castle;
+import com.arena.entity.mob.Player;
 import com.arena.graphics.Screen;
 import com.arena.graphics.SpriteSheet;
 import com.arena.graphics.TiledSpriteSheet;
-import com.arena.level.tile.Tile;
+import com.arena.GameScreen.level.tile.Tile;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
-import java.nio.channels.ByteChannel;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Level extends GameScreen{
 
@@ -26,7 +24,9 @@ public class Level extends GameScreen{
     protected int[] tiles;
     protected boolean castleBuilt = false;
     protected Castle castle;
+    protected Player player;
 
+    private ArrayList<CollidableEntity> collidableEntityList = new ArrayList<>();
     private ArrayList<Entity> entityList = new ArrayList<>();
 
     public Level( int width, int height){
@@ -68,16 +68,27 @@ public class Level extends GameScreen{
 
     public void update(){
 
-        for (int first = 0; first < entityList.size() ; first++){
-            for(int second = first + 1 ; second < entityList.size() ; second++){
-                if(entityList.get(first).isCollidingWith(entityList.get(second))) {
-                    entityList.get(first).handleCollision(entityList.get(second));
-                    entityList.get(second).handleCollision(entityList.get(first));
+        for (int first = 0; first < collidableEntityList.size() ; first++){
+            for(int second = first + 1; second < collidableEntityList.size() ; second++){
+                if(collidableEntityList.get(first).isCollidingWith(collidableEntityList.get(second))) {
+                    collidableEntityList.get(first).handleCollision(collidableEntityList.get(second));
+                    collidableEntityList.get(second).handleCollision(collidableEntityList.get(first));
                 }
             }
         }
 
-        for (int i= 0 ; i < entityList.size(); i++ ){
+        for (int i = 0; i < collidableEntityList.size(); i++ ){
+            CollidableEntity e = collidableEntityList.get(i);
+            if(e.isRemoved())
+            {
+                collidableEntityList.remove(e);
+            }
+            else {
+                e.update();
+            }
+        }
+
+        for (int i = 0; i < entityList.size(); i++ ){
             Entity e = entityList.get(i);
             if(e.isRemoved())
             {
@@ -106,16 +117,34 @@ public class Level extends GameScreen{
                 getTile(x,y).render(x,y,screen);
             }
         }
-        for (int i= 0 ; i < entityList.size(); i++ ){
+        for (int i = 0; i < collidableEntityList.size(); i++ ){
+            collidableEntityList.get(i).render(screen);
+        }
+
+        for (int i = 0; i < entityList.size(); i++ ){
             entityList.get(i).render(screen);
         }
 
+    }
+
+    public void addEntity(CollidableEntity collidableEntity){
+        collidableEntity.init(this);
+        collidableEntityList.add(collidableEntity);
     }
 
     public void addEntity(Entity entity){
         entity.init(this);
         entityList.add(entity);
     }
+
+    public void addEntity(Player player){
+        player.init(this);
+        collidableEntityList.add(player);
+        this.player = player;
+    }
+
+    public int getPlayerX(){ return player.x;}
+    public int getPlayerY(){return  player.y;}
 
     public Tile getTile(int x, int y){
         if(x<0 || x >= this.width || y<0 || y >= this.height) { return Tile.voidTile; } // Handle walking out of bounds
@@ -141,7 +170,7 @@ public class Level extends GameScreen{
             castleBuilt = true;
         }
         else{ // TODO: Check if eligible for upgrade and if player is close to the castle...
-            if(castle.isActive())
+            if(castle.isActive() && player.getXpLevel() > castle.getXpLevel())
                 castle.upgrade();
         }
 

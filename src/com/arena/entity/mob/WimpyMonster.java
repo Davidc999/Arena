@@ -1,10 +1,13 @@
 package com.arena.entity.mob;
 
-import com.arena.entity.Entity;
+import com.arena.entity.CollidableEntity;
 import com.arena.entity.Projectile.Projectile;
+import com.arena.entity.Projectile.WimpyProjectile;
+import com.arena.entity.Projectile.WizardProjectile;
 import com.arena.entity.particle.Particle;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
+import com.arena.graphics.SpriteSheet;
 
 import java.util.Random;
 
@@ -13,6 +16,7 @@ public class WimpyMonster extends Mob{
     Random random = new Random();
     int moveTimer;
     int xa,ya;
+    int attackRange;
 
     public WimpyMonster(int x, int y){
         this.x = x;
@@ -21,9 +25,56 @@ public class WimpyMonster extends Mob{
         this.speed = 1;
         this.xp = 1;
         this.xpLvl = 1;
+        this.projectileTimer = 75;
+        this.attackRange = 150;
     }
 
     public void update(){
+
+        updateMovement();
+
+        sprite.update();
+
+        updateShooting();
+
+    }
+
+
+    private void updateShooting(){
+        if(projectileTimer >0)
+            projectileTimer--;
+        else{
+            projectileTimer = 75;
+
+            double dx = level.getPlayerX() - x;
+            double dy = level.getPlayerY() - y;
+
+            if( Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2)) < attackRange){
+                shoot(Math.atan2(dy,dx));
+            }
+        }
+
+    }
+
+    public void shoot(double dir){
+
+        Projectile projectile = new WimpyProjectile(x - sprite.WIDTH / 2, y - sprite.HEIGHT / 2, dir, this, new AnimatedSprite(16, 0, 0, SpriteSheet.wimpyProjectile, 3, 1));
+
+        /*CollidableEntity.Direction animDir;
+        if (dir < 0.785 && dir >= -0.785) {
+            animDir = RIGHT;
+        } else if (dir < -0.785 && dir >= -2.355) {
+            animDir = UP;
+        } else if (dir < 2.355 && dir >= 0.785) {
+            animDir = DOWN;
+        } else {
+            animDir = LEFT;
+        }
+        projectile.setAnimationDir(animDir);*/
+        level.addEntity(projectile);
+    }
+
+    private void updateMovement(){
 
         if(moveTimer > 0){
             moveTimer--;
@@ -36,20 +87,11 @@ public class WimpyMonster extends Mob{
             ya = random.nextInt(3) - 1;
         }
 
-            if (xa != 0 || ya != 0) {
-                move(xa * speed, ya * speed);
-            } else {
-                sprite.stop();
-            }
-
-            sprite.update();
-
-            updateShooting();
-
-    }
-
-
-    public void updateShooting(){
+        if (xa != 0 || ya != 0) {
+            move(xa * speed, ya * speed);
+        } else {
+            sprite.stop();
+        }
 
     }
 
@@ -58,11 +100,13 @@ public class WimpyMonster extends Mob{
     }
 
     @Override
-    public void handleCollision(Entity other){
-        if(other instanceof Projectile) {
+    public void handleCollision(CollidableEntity other){
+        if(other instanceof WizardProjectile) {
             remove();
             Particle p = new Particle((int) x + sprite.WIDTH / 2, (int) y + sprite.HEIGHT / 2, 60, 4, 0xFFFF0000);
             level.addEntity(p);
+            ((Projectile) other).getOwner().addXP(3);
+
         }
     }
 
