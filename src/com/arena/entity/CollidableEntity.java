@@ -39,6 +39,6 @@ public abstract class CollidableEntity extends Entity {
     }
 
     public BoundingBox getCollisionBox(){
-        return sprite.getCollisionBox().translate(x,y);
+        return sprite.getCollisionBox().translate(x - sprite.WIDTH/2,y-sprite.HEIGHT/2);
     }
 }

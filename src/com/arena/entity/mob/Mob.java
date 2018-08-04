@@ -17,6 +17,7 @@ public abstract class Mob extends CollidableEntity {
     protected int projectileTimer = 0;
     protected int speed;
     protected int xpLvl = 1, xp =0;
+    protected int hp;
 
     public void move(int xChange, int yChange){
         Direction newDir = DOWN;
@@ -57,7 +58,7 @@ public abstract class Mob extends CollidableEntity {
         { }
         else {
             projectileTimer = 0;
-            Projectile projectile = new WizardProjectile(x - sprite.WIDTH / 2, y - sprite.HEIGHT / 2, dir, this, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 3, 4));
+            Projectile projectile = new WizardProjectile(x, y, dir, this);
 
             CollidableEntity.Direction animDir;
             if (dir < 0.785 && dir >= -0.785) {
@@ -92,7 +93,7 @@ public abstract class Mob extends CollidableEntity {
     public void render(){}
 
     public BoundingBox getCollisionBox(){
-        return sprite.getCollisionBox().translate(x,y);
+        return sprite.getCollisionBox().translate(x-sprite.WIDTH/2,y-sprite.HEIGHT/2);
     }
 
     public void addXP(int xp){
@@ -105,5 +106,9 @@ public abstract class Mob extends CollidableEntity {
 
     public int getXp() {
         return xp;
+    }
+
+    public int getHp() {
+        return hp;
     }
 }

@@ -2,6 +2,7 @@ package com.arena.entity.Projectile;
 
 import com.arena.entity.CollidableEntity;
 import com.arena.entity.mob.Mob;
+import com.arena.entity.mob.Player;
 import com.arena.entity.particle.Particle;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
@@ -35,17 +36,19 @@ public class WimpyProjectile extends Projectile{
         else
         {
             remove();
-            Particle p = new Particle((int)x+sprite.WIDTH/2,(int)y + sprite.HEIGHT/2,60,4);
+            Particle p = new Particle((int)x,(int)y,60,4);
             level.addEntity(p);
         }
     }
 
     public void handleCollision(CollidableEntity other){
+        if(other instanceof Player)
+            remove();
 
     }
 
     public void render(Screen screen){
-        screen.renderSprite((int)x,(int)y, sprite);
+        screen.renderSprite((int)x - sprite.WIDTH/2,(int)y-sprite.HEIGHT/2, sprite);
 
     }
 

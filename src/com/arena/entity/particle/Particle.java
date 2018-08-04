@@ -1,15 +1,17 @@
 package com.arena.entity.particle;
 
 import com.arena.entity.CollidableEntity;
+import com.arena.entity.Entity;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Particle extends CollidableEntity {
+public class Particle extends Entity {
 
     private List<Particle> particles = new ArrayList<>();
+    Sprite sprite;
 
     private int life;
 

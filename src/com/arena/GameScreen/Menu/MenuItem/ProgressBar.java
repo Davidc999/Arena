@@ -17,13 +17,7 @@ public class ProgressBar extends MenuItem{
 
     @Override
     public void update() {
-        double prevXPLvl;
-        if(Game.player.getXpLevel() == 0)
-            prevXPLvl = 0;
-        else
-            prevXPLvl = 5 * Math.pow(Game.player.getXpLevel() - 1,2);
-        double nextLvlXP = 5 * Math.pow(Game.player.getXpLevel(),2);
-        progress = 1 - (nextLvlXP - Game.player.getXp()) / (nextLvlXP - prevXPLvl);
+
     }
 
     @Override

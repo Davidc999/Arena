@@ -1,6 +1,8 @@
 package com.arena.entity.mob;
 
 import com.arena.Game;
+import com.arena.entity.CollidableEntity;
+import com.arena.entity.Projectile.Projectile;
 import com.arena.entity.Projectile.WizardProjectile;
 import com.arena.entity.particle.Particle;
 import com.arena.graphics.AnimatedSprite;
@@ -12,22 +14,37 @@ import com.arena.GameScreen.level.Level;
 public class Player extends Mob{
 
     private KeyBoard input;
+    private int spriteRed = 0;
 
     public Player(KeyBoard input, AnimatedSprite animatedSprite, Level level){
         this.input = input;
         this.sprite = animatedSprite;
         this.speed = 1;
+        this.hp = 99;
     }
 
     public Player(int x, int y, KeyBoard input, AnimatedSprite animatedSprite){
         this.x = x;
         this.y = y;
         this.sprite = animatedSprite;
+        this.sprite.setColisionBox(Direction.DOWN,3,1,27,31);
+        //this.sprite.setColisionBox(Direction.DOWN,3,1,3,3);
+        this.sprite.setColisionBox(Direction.LEFT,2,1,28,31);
+        this.sprite.setColisionBox(Direction.RIGHT,2,1,28,31);
+        this.sprite.setColisionBox(Direction.UP,3,87-32*3,26,31);
         this.input = input;
         this.speed = 1;
+        this.hp = 99;
     }
 
     public void update(){
+
+        if(spriteRed > 0)
+        {
+            spriteRed--;
+            if(spriteRed == 0)
+                sprite.restore(1);
+        }
 
         if(input.buildCastle){
             level.buildCastleReq(x,y);
@@ -80,5 +97,20 @@ public class Player extends Mob{
     private void levelUp(){
         xpLvl++;
         level.addEntity(new Particle(x, y,130,30,0xffffff00));
+    }
+
+    public void handleCollision(CollidableEntity other){
+        if(other instanceof Projectile) {
+            if(((Projectile) other).getOwner() != this){
+                hp -= ((Projectile) other).getDamage();
+                sprite.effectPaint(0xffff0000);
+                spriteRed = 3;
+                if(hp <= 0) {
+                    remove();
+                    Particle p = new Particle((int) x, (int) y, 60, 4, 0xFFFF0000);
+                    level.addEntity(p);
+                }
+            }
+        }
     }
 }

@@ -66,7 +66,7 @@ public class Sprite {
         }
     }
 
-    public void setColisionBox(int x, int y, int height, int width){
+    public void setColisionBox(int x, int y, int width, int height){
         collisionBox = new BoundingBox(x,y,height,width);
     }
 

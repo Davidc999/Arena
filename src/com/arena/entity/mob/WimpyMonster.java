@@ -21,12 +21,17 @@ public class WimpyMonster extends Mob{
     public WimpyMonster(int x, int y){
         this.x = x;
         this.y = y;
-        this.sprite = AnimatedSprite.flyMonster;
+        this.sprite = new AnimatedSprite(32,0,0,SpriteSheet.flyMonster,10,4 );
+        this.sprite.setColisionBox(Direction.DOWN,7,0,21,30);
+        this.sprite.setColisionBox(Direction.LEFT,0,2,30,19);
+        this.sprite.setColisionBox(Direction.RIGHT,1,1,30,19);
+        this.sprite.setColisionBox(Direction.UP,7,0,19,31);
         this.speed = 1;
         this.xp = 1;
         this.xpLvl = 1;
         this.projectileTimer = 75;
-        this.attackRange = 150;
+        this.attackRange = 200;
+        this.hp = 10;
     }
 
     public void update(){
@@ -58,7 +63,7 @@ public class WimpyMonster extends Mob{
 
     public void shoot(double dir){
 
-        Projectile projectile = new WimpyProjectile(x - sprite.WIDTH / 2, y - sprite.HEIGHT / 2, dir, this, new AnimatedSprite(16, 0, 0, SpriteSheet.wimpyProjectile, 3, 1));
+        Projectile projectile = new WimpyProjectile(x, y , dir, this, new AnimatedSprite(SpriteSheet.wimpyProjectile.SIZE, 0, 0, SpriteSheet.wimpyProjectile, 3, 1));
 
         /*CollidableEntity.Direction animDir;
         if (dir < 0.785 && dir >= -0.785) {
@@ -102,11 +107,13 @@ public class WimpyMonster extends Mob{
     @Override
     public void handleCollision(CollidableEntity other){
         if(other instanceof WizardProjectile) {
-            remove();
-            Particle p = new Particle((int) x + sprite.WIDTH / 2, (int) y + sprite.HEIGHT / 2, 60, 4, 0xFFFF0000);
-            level.addEntity(p);
-            ((Projectile) other).getOwner().addXP(3);
-
+            hp -= ((WizardProjectile) other).getDamage();
+            if(hp <= 0) {
+                remove();
+                Particle p = new Particle((int) x, (int) y, 60, 4, 0xFFFF0000);
+                level.addEntity(p);
+                ((Projectile) other).getOwner().addXP(1);
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 package com.arena;
 
+import com.arena.GameScreen.GameScreenManager;
+import com.arena.GameScreen.Menu.HUD;
 import com.arena.entity.mob.Player;
 import com.arena.entity.mob.mobSpawner;
 import com.arena.graphics.AnimatedSprite;
@@ -20,12 +22,13 @@ public class Game extends Canvas implements Runnable{
 
     private static int width = 500;
     private static int height = width / 16 * 9;
-    private static int scale = 3;
+    private static int scale = 2;
 
     private Thread thread;
     private JFrame frame;
     private KeyBoard keyBoard;
-    private Level level;
+    //private Level level;
+    private GameScreenManager gameScreenManager;
 
     private boolean running = false;
 
@@ -53,15 +56,20 @@ public class Game extends Canvas implements Runnable{
 
         //setting the keyboard
         keyBoard = new KeyBoard();
+        addKeyListener(keyBoard);
+
+        //Setup levels:
         //level = new RandomLevel(64,64);
-        level = new Level(50,50,"res/levels/map2.map");
+
+        gameScreenManager = new GameScreenManager();
+        Level level = new Level(50,50,"res/levels/map2.map");
         player = new  Player(25*16,25*16,keyBoard, AnimatedSprite.player);
         level.addEntity(new mobSpawner(60*4, 28*16, 28*16, 1));
         //level.addEntity(new WimpyMonster(28*16,28*16));
-
         level.addEntity(player);
-        //player.init(level);
-        addKeyListener(keyBoard);
+        gameScreenManager.pushGameScreen(level,true);
+        gameScreenManager.pushGameScreen(new HUD(),false);
+
 
         Mouse mouse = new Mouse();
         addMouseListener(mouse);
@@ -123,8 +131,9 @@ public class Game extends Canvas implements Runnable{
     // game logic
     public void update(){
         keyBoard.update();
-        player.update();
-        level.update();
+        //player.update();
+        //level.update();
+        gameScreenManager.update();
     }
 
 
@@ -138,10 +147,7 @@ public class Game extends Canvas implements Runnable{
         }
 
         screen.clear();
-        int xScroll = player.x - screen.width / 2;
-        int yScroll = player.y - screen.height / 2;
-        level.render(xScroll, yScroll, screen);
-        player.render(screen);
+        gameScreenManager.render(screen);
 
         for ( int i =0 ; i < pixels.length ; i++){
             pixels[i] = screen.pixels[i];

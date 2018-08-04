@@ -12,7 +12,8 @@ public abstract class Projectile extends CollidableEntity {
     protected double angle;
     protected AnimatedSprite sprite;
     protected double nx, ny, x, y;
-    protected double speed, range, damage, distanceTraveled;
+    protected double speed, range, distanceTraveled;
+    int damage;
     protected static int rateOfFire;
     protected Mob owner;
 
@@ -36,10 +37,14 @@ public abstract class Projectile extends CollidableEntity {
     {return rateOfFire;}
 
     public BoundingBox getCollisionBox(){
-        return sprite.getCollisionBox().translate((int)x,(int)y);
+        return sprite.getCollisionBox().translate((int)x-sprite.WIDTH/2,(int)y-sprite.HEIGHT/2);
     }
 
     public Mob getOwner() {
         return owner;
+    }
+
+    public int getDamage() {
+        return damage;
     }
 }

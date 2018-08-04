@@ -5,7 +5,7 @@ import com.arena.graphics.Sprite;
 
 public class Picture extends MenuItem{
 
-    Sprite sprite;
+    public Sprite sprite;
 
     public Picture(Sprite sprite,int x, int y, boolean visible){
         super(x,y,visible);

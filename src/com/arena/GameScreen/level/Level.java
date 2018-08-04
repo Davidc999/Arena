@@ -23,13 +23,14 @@ public class Level extends GameScreen{
     protected int width, height;
     protected int[] tiles;
     protected boolean castleBuilt = false;
-    protected Castle castle;
-    protected Player player;
+    protected static Castle castle;
+    protected static Player player;
 
     private ArrayList<CollidableEntity> collidableEntityList = new ArrayList<>();
     private ArrayList<Entity> entityList = new ArrayList<>();
 
     public Level( int width, int height){
+        super();
         this.width = width;
         this.height = height;
         tiles = new int[width * height];
@@ -79,24 +80,22 @@ public class Level extends GameScreen{
 
         for (int i = 0; i < collidableEntityList.size(); i++ ){
             CollidableEntity e = collidableEntityList.get(i);
+
+            e.update();
             if(e.isRemoved())
             {
                 collidableEntityList.remove(e);
-            }
-            else {
-                e.update();
             }
         }
 
         for (int i = 0; i < entityList.size(); i++ ){
             Entity e = entityList.get(i);
+            e.update();
             if(e.isRemoved())
             {
                 entityList.remove(e);
             }
-            else {
-                e.update();
-            }
+
         }
 
     }
@@ -105,7 +104,11 @@ public class Level extends GameScreen{
 
     }
 
-    public void render(int xScroll, int yScroll, Screen screen){
+    public void render(Screen screen){
+
+        xScroll = player.x - screen.width / 2;
+        yScroll = player.y - screen.height / 2;
+
         screen.setOffset(xScroll, yScroll);
         int x0 = (xScroll >> 4) -1;
         int x1 = ((xScroll + screen.width) >> 4) +1;
@@ -174,6 +177,13 @@ public class Level extends GameScreen{
                 castle.upgrade();
         }
 
+    }
+
+    public static int getCastleLevel(){
+        if(castle == null)
+            return 0;
+        else
+            return castle.getXpLevel();
     }
 
     public void setCastleBuilt(boolean castleBuilt) {

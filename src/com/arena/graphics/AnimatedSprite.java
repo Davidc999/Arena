@@ -12,7 +12,7 @@ public class AnimatedSprite extends Sprite{
     private BoundingBox[] collisionBox;
 
     public static AnimatedSprite player = new AnimatedSprite(32,0,0,SpriteSheet.maleWizard,10,3 );
-    public static AnimatedSprite flyMonster = new AnimatedSprite(32,0,0,SpriteSheet.flyMonster,10,4 );
+    //public static AnimatedSprite flyMonster = new AnimatedSprite(32,0,0,SpriteSheet.flyMonster,10,4 );
 
     public AnimatedSprite(int size, int x, int y, SpriteSheet sheet, int updateDelay, int animationLength){
         super(size, x, y, sheet);
@@ -26,7 +26,7 @@ public class AnimatedSprite extends Sprite{
             setColisionBox(CollidableEntity.Direction.values()[i],0,0,size,size);
     }
 
-    public void setColisionBox(CollidableEntity.Direction dir, int x, int y, int height, int width){
+    public void setColisionBox(CollidableEntity.Direction dir, int x, int y, int width, int height){
         collisionBox[dir.ordinal()] = new BoundingBox(x,y,height,width);
     }
 

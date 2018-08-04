@@ -7,8 +7,15 @@ public abstract class GameScreen {
     public boolean visible, enabled;
     protected int xScroll, yScroll;
 
+    public GameScreen(){
+        visible = true;
+        enabled = true;
+        xScroll = 0;
+        yScroll = 0;
+    }
 
-    abstract public void render(int xScroll, int yScroll,Screen screen);
+
+    abstract public void render(Screen screen);
 
     abstract public void update();
 

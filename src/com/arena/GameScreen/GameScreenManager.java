@@ -7,27 +7,31 @@ import java.util.Stack;
 
 public class GameScreenManager {
 
-    private static Stack<GameScreen> screens;
-    private static GameScreen controlledScreen;
+    private Stack<GameScreen> screens;
+    private GameScreen controlledScreen;
 
 
-    public static void pushGameScreen(GameScreen gameScreen, boolean isControlled)
+    public GameScreenManager(){
+        screens = new Stack<>();
+    }
+
+    public void pushGameScreen(GameScreen gameScreen, boolean isControlled)
     {
         screens.push(gameScreen);
         if(isControlled){ setControlledScreen(gameScreen); }
     }
 
-    public static void popGameScreen()
+    public void popGameScreen()
     {
         screens.pop();
     }
 
-    public static void setControlledScreen(GameScreen gameScreen)
+    public void setControlledScreen(GameScreen gameScreen)
     {
         controlledScreen = gameScreen;
     }
 
-    public static void update()
+    public void update()
     {
         ListIterator iter = screens.listIterator();
         GameScreen currScreen;
@@ -44,13 +48,13 @@ public class GameScreenManager {
 
     public void render(Screen screen)
     {
-        ListIterator iter = screens.listIterator(screens.size());
+        ListIterator iter = screens.listIterator();
         GameScreen currScreen;
-        while(iter.hasPrevious())
+        while(iter.hasNext())
         {
-            currScreen = ((GameScreen)iter.previous());
+            currScreen = ((GameScreen)iter.next());
             if(currScreen.visible) {
-            currScreen.render(0,0,screen);
+            currScreen.render(screen);
             }
 
         }

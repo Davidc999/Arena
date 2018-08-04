@@ -19,12 +19,14 @@ public abstract class Menu extends GameScreen{
 
     //TODO: Handle cursor in future
     public Menu(){
+        super();
         menuItems = new ArrayList<>();
         selectableMenuItems = new ArrayList<>();
         selectedItem = 0;
     }
 
-    public void render(int xscroll, int yscroll, Screen screen){
+    public void render(Screen screen){
+        screen.setOffset(xScroll,yScroll);
         for (MenuItem item: menuItems) {
             item.render(screen);
         }
