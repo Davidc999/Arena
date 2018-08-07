@@ -115,6 +115,30 @@ public class WimpyMonster extends Mob{
                 ((Projectile) other).getOwner().addXP(1);
             }
         }
+        if(other instanceof Player){
+           /* int dx = 0;
+            int dy = 0;
+            if(other.x > x + sprite.WIDTH/2)
+                dx = -1;
+            else if(other.x < x - sprite.WIDTH/2)
+                dx = 1;
+            if(other.y > y + sprite.HEIGHT/2)
+                dy = -1;
+            else if (other.y < y - sprite.HEIGHT/2)
+                dy = 1;
+            move(dx * 32, dy * 32);*/
+
+            if(other.x > x + sprite.WIDTH/2)
+                xa = -1;
+            else if(other.x < x - sprite.WIDTH/2)
+                xa = 1;
+            if(other.y > y + sprite.HEIGHT/2)
+                ya = -1;
+            else if (other.y < y - sprite.HEIGHT/2)
+                ya = 1;
+
+            move(xa*speed*3, ya *speed*3);
+        }
     }
 
 }

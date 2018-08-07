@@ -31,7 +31,7 @@ public class Player extends Mob{
         //this.sprite.setColisionBox(Direction.DOWN,3,1,3,3);
         this.sprite.setColisionBox(Direction.LEFT,2,1,28,31);
         this.sprite.setColisionBox(Direction.RIGHT,2,1,28,31);
-        this.sprite.setColisionBox(Direction.UP,3,87-32*3,26,31);
+        this.sprite.setColisionBox(Direction.UP,3,97-32*3,26,31);
         this.input = input;
         this.speed = 1;
         this.hp = 99;

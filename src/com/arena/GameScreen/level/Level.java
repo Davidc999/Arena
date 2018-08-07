@@ -154,6 +154,7 @@ public class Level extends GameScreen{
         return TiledSpriteSheet.tileSheet.tiles[tiles[x + y * this.width]];
     }
 
+    //TODO: Fix tile collision! Mob uses something different, Projectile uses this. Both should use the new bounding boxes...
     public boolean tileCollision(double entityX, double entityY,double entityHeight, int entityWidth, double xChange, double yChange){
         for(int c=0; c<4; c++)
         {
