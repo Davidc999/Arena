@@ -9,7 +9,7 @@ import com.arena.graphics.Screen;
 
 public class WimpyProjectile extends Projectile{
 
-    public WimpyProjectile(int x, int y, double dir, Mob owner, AnimatedSprite sprite) {
+    public WimpyProjectile(double x, double y, double dir, Mob owner, AnimatedSprite sprite) {
         super(x, y, dir, owner, sprite);
         range = 200;
         damage = 5;

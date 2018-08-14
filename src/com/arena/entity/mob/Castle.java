@@ -1,43 +1,64 @@
 package com.arena.entity.mob;
 
 import com.arena.GameScreen.Menu.MenuItem.Picture;
+import com.arena.GameScreen.level.Level;
+import com.arena.entity.CastleFloor;
 import com.arena.entity.CollidableEntity;
+import com.arena.entity.powerup.HealthCrystal;
 import com.arena.graphics.BoundingBox;
 import com.arena.graphics.Screen;
 import com.arena.graphics.Sprite;
 import com.arena.graphics.SpriteSheet;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Castle extends Mob {
 
-    private int buildTimer;
+    private int buildTimer, crystalTimer;
     private boolean active;
     private Sprite sprite;
-    private ArrayList<Picture> floorList;
+    private ArrayList<CastleFloor> floorList;
+    private int crystalCount = 0;
+    private Random random = new Random();
 
     public Castle(int x, int y){
         this.x = x;
         this.y = y;
         buildTimer = 60*(5 + xpLvl);
+        crystalTimer = (random.nextInt(3) + 1) * 60;
 
         sprite = new Sprite(32,0,2, SpriteSheet.castleTowers);
+        sprite.setColisionBox(0,0,sprite.WIDTH,sprite.HEIGHT/2);
         floorList = new ArrayList<>();
-        floorList.add(new Picture(new Sprite(32,0,0,SpriteSheet.castleTowers),x-16,y-32-16,true));
+    }
+
+    @Override
+    public void init(Level level){
+        this.level = level;
+        CastleFloor newFloor = new CastleFloor(x-16,y-32-16,new Sprite(32,0,0,SpriteSheet.castleTowers));
+        floorList.add(newFloor);
+        level.addEntity(newFloor);
         deActivate();
     }
 
     @Override
     public void update() {
         handleConstruction();
+
+        if(isActive())
+            spawnCrystal();
     }
 
     public void upgrade(){
         xpLvl++;
         buildTimer = 60*(5 + xpLvl);
 
-        if(xpLvl == (1 << (floorList.size() +2)) -1 -3 + 1)
-            floorList.add(new Picture(null,x-16,y-16-32*(floorList.size()+1),true));
+        if(xpLvl == (1 << (floorList.size() +2)) -1 -3 + 1) {
+            CastleFloor newFloor = new CastleFloor( (int) x - 16, (int) y - 16 - 32 * (floorList.size() + 1), null);
+            floorList.add(newFloor);
+            level.addEntity(newFloor);
+        }
 
         //Handle sprites
         //Handle tower base:
@@ -46,7 +67,7 @@ public class Castle extends Mob {
             int floorDelay = (1 << (floor +2)) -1 -3 + 1;
             int spriteColorInd = (int)((xpLvl-floorDelay) / Math.pow(2,floor+1)) % 2;
             int spriteRooftopInd = floor == floorList.size()-1 ? 0 : 1;
-            floorList.get(floor).sprite = new Sprite(32,spriteColorInd,spriteRooftopInd,SpriteSheet.castleTowers);
+            floorList.get(floor).setSprite( new Sprite(32,spriteColorInd,spriteRooftopInd,SpriteSheet.castleTowers));
         }
 
         deActivate();
@@ -58,10 +79,7 @@ public class Castle extends Mob {
     }
 
     public void render(Screen screen){
-        screen.renderSprite(x - sprite.WIDTH/2,y - sprite.HEIGHT/2, sprite);
-        for (Picture floor: floorList) {
-            floor.render(screen);
-        }
+        screen.renderSprite((int)x - sprite.WIDTH/2,(int)y - sprite.HEIGHT/2, sprite);
     }
 
     private void deActivate(){
@@ -75,10 +93,27 @@ public class Castle extends Mob {
         sprite.effectAdjustHue(0.3,'G');
         sprite.effectAdjustHue(0.3,'B');
 
-        for (Picture floor: floorList) {
+        for (CastleFloor floor: floorList) {
             floor.sprite.effectAdjustHue(0.8,'R');
             floor.sprite.effectAdjustHue(0.3,'G');
             floor.sprite.effectAdjustHue(0.3,'B');
+
+        }
+
+    }
+
+    private void spawnCrystal(){
+        crystalTimer--;
+        if(crystalTimer == 0){
+            crystalTimer = crystalTimer = (random.nextInt(3) + 1) * 60;
+            if(crystalCount < xpLvl){
+                double vy,vx;
+                vx = random.nextInt(9)/2.0 - 2;
+                vy = -1 - random.nextInt(4);
+                HealthCrystal newCrystal = new HealthCrystal(x,y - floorList.size() * sprite.HEIGHT - sprite.HEIGHT/2,vx,vy, (int)y + sprite.HEIGHT,this);
+                crystalCount++;
+                level.addEntity(newCrystal);
+            }
 
         }
 
@@ -101,7 +136,11 @@ public class Castle extends Mob {
     }
 
     public BoundingBox getCollisionBox(){
-        return sprite.getCollisionBox().translate(x,y);
+        return sprite.getCollisionBox().translate((int)x,(int)y);
+    }
+
+    public void decrementCrystals(){
+        crystalCount--;
     }
 
 

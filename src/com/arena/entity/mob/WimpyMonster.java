@@ -18,7 +18,7 @@ public class WimpyMonster extends Mob{
     int xa,ya;
     int attackRange;
 
-    public WimpyMonster(int x, int y){
+    public WimpyMonster(double x, double y){
         this.x = x;
         this.y = y;
         this.sprite = new AnimatedSprite(32,0,0,SpriteSheet.flyMonster,10,4 );
@@ -63,7 +63,7 @@ public class WimpyMonster extends Mob{
 
     public void shoot(double dir){
 
-        Projectile projectile = new WimpyProjectile(x, y , dir, this, new AnimatedSprite(SpriteSheet.wimpyProjectile.SIZE, 0, 0, SpriteSheet.wimpyProjectile, 3, 1));
+        Projectile projectile = new WimpyProjectile(x, y , dir, this, new AnimatedSprite(SpriteSheet.wimpyProjectile.HEIGHT, 0, 0, SpriteSheet.wimpyProjectile, 3, 1));
 
         /*CollidableEntity.Direction animDir;
         if (dir < 0.785 && dir >= -0.785) {
@@ -101,7 +101,7 @@ public class WimpyMonster extends Mob{
     }
 
     public void render(Screen screen){
-        screen.renderSprite(x - sprite.WIDTH/2,y - sprite.HEIGHT/2, sprite);
+        screen.renderSprite((int)x - sprite.WIDTH/2,(int)y - sprite.HEIGHT/2, sprite);
     }
 
     @Override

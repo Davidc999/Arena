@@ -39,7 +39,7 @@ public class Screen {
             for (int x = 0; x < sprite.WIDTH; x++) {
                 int xa = x + xp; // xp being xPixel, , the sprite's offset in pixels on the map. x is inside the sprite.
                 if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
-                int pixelColor = sprite.pixels[x+y*sprite.HEIGHT];
+                int pixelColor = sprite.pixels[x+y*sprite.WIDTH];
                 if(pixelColor != Sprite.alphaColor) pixels[xa+ya*width] = pixelColor;
             }
         }

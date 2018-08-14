@@ -21,6 +21,7 @@ public class Player extends Mob{
         this.sprite = animatedSprite;
         this.speed = 1;
         this.hp = 99;
+        this.maxHp = 99;
     }
 
     public Player(int x, int y, KeyBoard input, AnimatedSprite animatedSprite){
@@ -35,6 +36,7 @@ public class Player extends Mob{
         this.input = input;
         this.speed = 1;
         this.hp = 99;
+        this.maxHp = 99;
     }
 
     public void update(){
@@ -47,7 +49,7 @@ public class Player extends Mob{
         }
 
         if(input.buildCastle){
-            level.buildCastleReq(x,y);
+            level.buildCastleReq((int)x,(int)y);
         }
 
         int xa = 0;
@@ -85,7 +87,7 @@ public class Player extends Mob{
     }
 
     public void render(Screen screen){
-        screen.renderSprite(x - sprite.WIDTH/2,y - sprite.HEIGHT/2, sprite);
+        screen.renderSprite((int)x - sprite.WIDTH/2,(int)y - sprite.HEIGHT/2, sprite);
     }
 
     public void addXP(int xp){
@@ -96,7 +98,7 @@ public class Player extends Mob{
 
     private void levelUp(){
         xpLvl++;
-        level.addEntity(new Particle(x, y,130,30,0xffffff00));
+        level.addEntity(new Particle((int)x, (int)y,130,30,0xffffff00));
     }
 
     public void handleCollision(CollidableEntity other){

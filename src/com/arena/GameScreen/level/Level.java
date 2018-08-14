@@ -106,8 +106,8 @@ public class Level extends GameScreen{
 
     public void render(Screen screen){
 
-        xScroll = player.x - screen.width / 2;
-        yScroll = player.y - screen.height / 2;
+        xScroll = (int)player.x - screen.width / 2;
+        yScroll = (int)player.y - screen.height / 2;
 
         screen.setOffset(xScroll, yScroll);
         int x0 = (xScroll >> 4) -1;
@@ -146,8 +146,13 @@ public class Level extends GameScreen{
         this.player = player;
     }
 
-    public int getPlayerX(){ return player.x;}
-    public int getPlayerY(){return  player.y;}
+    public void addEntity(Castle castle){
+        castle.init(this);
+        collidableEntityList.add(0,castle);
+    }
+
+    public int getPlayerX(){ return (int)player.x;}
+    public int getPlayerY(){return  (int)player.y;}
 
     public Tile getTile(int x, int y){
         if(x<0 || x >= this.width || y<0 || y >= this.height) { return Tile.voidTile; } // Handle walking out of bounds
@@ -155,11 +160,11 @@ public class Level extends GameScreen{
     }
 
     //TODO: Fix tile collision! Mob uses something different, Projectile uses this. Both should use the new bounding boxes...
-    public boolean tileCollision(double entityX, double entityY,double entityHeight, int entityWidth, double xChange, double yChange){
+    public boolean tileCollision(double entityX, double entityY, int entityWidth, double entityHeight, double xChange, double yChange){
         for(int c=0; c<4; c++)
         {
-            double xTarget = (entityX+ (c%2)*entityWidth + xChange)/ SpriteSheet.tiles.TILESIZE;
-            double yTarget = (entityY+(c/2)*entityHeight+yChange)/SpriteSheet.tiles.TILESIZE;
+            double xTarget = (entityX+ (c%2)*entityWidth + xChange)/ SpriteSheet.tiles.TILE_WIDTH;
+            double yTarget = (entityY+(c/2)*entityHeight+yChange)/SpriteSheet.tiles.TILE_HEIGHT;
             if(getTile((int)xTarget,(int)yTarget).solid) {
                 return true;
             }

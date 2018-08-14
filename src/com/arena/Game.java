@@ -4,6 +4,7 @@ import com.arena.GameScreen.GameScreenManager;
 import com.arena.GameScreen.Menu.HUD;
 import com.arena.entity.mob.Player;
 import com.arena.entity.mob.mobSpawner;
+import com.arena.entity.powerup.HealthCrystal;
 import com.arena.graphics.AnimatedSprite;
 import com.arena.graphics.Screen;
 import com.arena.input.KeyBoard;
@@ -65,6 +66,7 @@ public class Game extends Canvas implements Runnable{
         Level level = new Level(50,50,"res/levels/map2.map");
         player = new  Player(25*16,25*16,keyBoard, AnimatedSprite.player);
         level.addEntity(new mobSpawner(60*4, 28*16, 28*16, 1));
+        //level.addEntity(new HealthCrystal(24*16,24*16));
         //level.addEntity(new WimpyMonster(28*16,28*16));
         level.addEntity(player);
         gameScreenManager.pushGameScreen(level,true);

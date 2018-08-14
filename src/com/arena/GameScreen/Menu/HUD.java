@@ -23,13 +23,13 @@ public class HUD extends Menu{
         menuItems.add(0, new Picture(new Sprite(36,0,0, SpriteSheet.castleHUDImage),PICTURE_OFFSET,PICTURE_OFFSET,true));
         menuItems.add(1, new ProgressBar(PICTURE_OFFSET+3,PICTURE_OFFSET+29,true,4,30,0xffffff33));
 
-        NUMBER_SPRITE_OFFSET = SpriteSheet.numbers.TILESIZE;
+        NUMBER_SPRITE_OFFSET = SpriteSheet.numbers.TILE_WIDTH;
         menuItems.add(2,new NumberPicture(PICTURE_OFFSET+TEXT_OFFSET_X,PICTURE_OFFSET+TEXT_OFFSET_Y,true,'0'));
         menuItems.add(3,new NumberPicture(PICTURE_OFFSET+TEXT_OFFSET_X+NUMBER_SPRITE_OFFSET,PICTURE_OFFSET+TEXT_OFFSET_Y,true,'/'));
         menuItems.add(4,new NumberPicture(PICTURE_OFFSET+TEXT_OFFSET_X+NUMBER_SPRITE_OFFSET*2,PICTURE_OFFSET+TEXT_OFFSET_Y,true,'1'));
 
         //HP area
-        menuItems.add(5, new Picture(new Sprite(9,0,0,SpriteSheet.heartimg),PICTURE_OFFSET + 40,16,true));
+        menuItems.add(5, new Picture(new Sprite(9,0,0,SpriteSheet.heartImg),PICTURE_OFFSET + 40,16,true));
         menuItems.add(6,new NumberPicture(PICTURE_OFFSET + 40+6 + NUMBER_SPRITE_OFFSET,16,true,'9'));
         menuItems.add(7,new NumberPicture(PICTURE_OFFSET + 40+6 + NUMBER_SPRITE_OFFSET*2,16,true,'9'));
         menuItems.add(8,new NumberPicture(PICTURE_OFFSET + 40+6 + NUMBER_SPRITE_OFFSET*3,16,true,'/'));

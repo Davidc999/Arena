@@ -26,6 +26,18 @@ public class AnimatedSprite extends Sprite{
             setColisionBox(CollidableEntity.Direction.values()[i],0,0,size,size);
     }
 
+    public AnimatedSprite(int width, int height, int x, int y, SpriteSheet sheet, int updateDelay, int animationLength){
+        super(width,height, x, y, sheet);
+        this.updateDelay = updateDelay;
+        currFrame = 0;
+        updateCount = 0;
+        started = false;
+        this.animationLength = animationLength;
+        collisionBox = new BoundingBox[4];
+        for(int i=0; i<4; i++)
+            setColisionBox(CollidableEntity.Direction.values()[i],0,0,width,height);
+    }
+
     public void setColisionBox(CollidableEntity.Direction dir, int x, int y, int width, int height){
         collisionBox[dir.ordinal()] = new BoundingBox(x,y,height,width);
     }

@@ -14,7 +14,7 @@ public class WizardProjectile extends Projectile {
 
 
 
-    public WizardProjectile(int x, int y, double dir, Mob owner) {
+    public WizardProjectile(double x, double y, double dir, Mob owner) {
         super(x, y, dir, owner, new AnimatedSprite(32, 0, 0, SpriteSheet.arrow, 3, 4));
         sprite.setColisionBox(Direction.DOWN,12,9,8,23);
         sprite.setColisionBox(Direction.LEFT,0,12,22,8);

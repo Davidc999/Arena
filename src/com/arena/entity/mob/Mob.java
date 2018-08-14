@@ -17,7 +17,7 @@ public abstract class Mob extends CollidableEntity {
     protected int projectileTimer = 0;
     protected int speed;
     protected int xpLvl = 1, xp =0;
-    protected int hp;
+    protected int hp, maxHp;
 
     public void move(int xChange, int yChange){
         Direction newDir = DOWN;
@@ -83,7 +83,7 @@ public abstract class Mob extends CollidableEntity {
     public boolean collision(int xChange, int yChange){
         for(int c=0; c<4; c++)
         {
-            if(level.getTile((x+ (c%2)*0 + xChange)/ SpriteSheet.tiles.TILESIZE,(y+(c/2)*10+yChange)/SpriteSheet.tiles.TILESIZE).solid) {
+            if(level.getTile(((int)x+ (c%2)*0 + xChange)/ SpriteSheet.tiles.TILE_WIDTH,((int)y+(c/2)*10+yChange)/SpriteSheet.tiles.TILE_HEIGHT).solid) {
                 return true;
             }
         }
@@ -93,7 +93,7 @@ public abstract class Mob extends CollidableEntity {
     public void render(){}
 
     public BoundingBox getCollisionBox(){
-        return sprite.getCollisionBox().translate(x-sprite.WIDTH/2,y-sprite.HEIGHT/2);
+        return sprite.getCollisionBox().translate((int)x-sprite.WIDTH/2,(int)y-sprite.HEIGHT/2);
     }
 
     public void addXP(int xp){
@@ -110,5 +110,11 @@ public abstract class Mob extends CollidableEntity {
 
     public int getHp() {
         return hp;
+    }
+
+    public void modifyHp(int amount){
+        hp += amount;
+        if(hp > maxHp)
+            hp = maxHp;
     }
 }

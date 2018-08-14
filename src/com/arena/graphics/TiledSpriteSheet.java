@@ -19,14 +19,14 @@ public class TiledSpriteSheet {
     {
         solidTiles.addAll( Arrays.asList(70,0,1,2,21,23,42,43,44));
 
-        tiles = new Tile[spriteSheet.SIZE / spriteSheet.TILESIZE * spriteSheet.SIZE / spriteSheet.TILESIZE];
+        tiles = new Tile[spriteSheet.WIDTH / spriteSheet.TILE_WIDTH * spriteSheet.HEIGHT / spriteSheet.TILE_HEIGHT];
 
-        for(int tileY = 0; tileY < spriteSheet.SIZE / spriteSheet.TILESIZE; tileY++){
-            for(int tileX = 0; tileX < spriteSheet.SIZE / spriteSheet.TILESIZE; tileX++){
-                tiles[tileX + tileY * (spriteSheet.SIZE / spriteSheet.TILESIZE)] = new Tile(new Sprite(spriteSheet.TILESIZE,tileX, tileY, SpriteSheet.tiles));
+        for(int tileY = 0; tileY < spriteSheet.HEIGHT / spriteSheet.TILE_HEIGHT; tileY++){
+            for(int tileX = 0; tileX < spriteSheet.WIDTH / spriteSheet.TILE_WIDTH; tileX++){
+                tiles[tileX + tileY * (spriteSheet.WIDTH / spriteSheet.TILE_WIDTH)] = new Tile(new Sprite(spriteSheet.TILE_WIDTH,tileX, tileY, SpriteSheet.tiles));
                 //TODO: This is hardcoded solidifying. Replace me.
-                if(solidTiles.contains(tileX + tileY * (spriteSheet.SIZE / spriteSheet.TILESIZE)))
-                    tiles[tileX + tileY * (spriteSheet.SIZE / spriteSheet.TILESIZE)].solid = true;
+                if(solidTiles.contains(tileX + tileY * (spriteSheet.WIDTH / spriteSheet.TILE_WIDTH)))
+                    tiles[tileX + tileY * (spriteSheet.WIDTH / spriteSheet.TILE_WIDTH)].solid = true;
             }
         }
     }

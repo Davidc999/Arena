@@ -11,15 +11,15 @@ public abstract class Projectile extends CollidableEntity {
     protected final int xOrigin, yOrigin;
     protected double angle;
     protected AnimatedSprite sprite;
-    protected double nx, ny, x, y;
+    protected double nx, ny;
     protected double speed, range, distanceTraveled;
     int damage;
     protected static int rateOfFire;
     protected Mob owner;
 
-    public Projectile(int x, int y, double dir, Mob owner, AnimatedSprite sprite){
-        xOrigin = x;
-        yOrigin = y;
+    public Projectile(double x, double y, double dir, Mob owner, AnimatedSprite sprite){
+        xOrigin = (int)x;
+        yOrigin = (int)y;
         angle = dir;
         this.x = x;
         this.y = y;

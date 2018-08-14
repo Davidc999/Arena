@@ -34,7 +34,7 @@ public class Sprite {
         WIDTH = width;
         HEIGHT = height;
         pixels = new int[width * height];
-        origPixels = new int[width * width];
+        origPixels = new int[width * height];
         this.x = x * width;
         this.y = y * height;
         this.sheet = sheet;
@@ -60,21 +60,21 @@ public class Sprite {
     protected void load(){
         for (int y =0 ; y<HEIGHT; y++){
             for (int x =0 ; x<WIDTH; x++) {
-                pixels[x + y * HEIGHT] = sheet.pixels[x + this.x + (y + this.y) * sheet.SIZE];
-                origPixels[x + y * HEIGHT] = sheet.pixels[x + this.x + (y + this.y) * sheet.SIZE];
+                pixels[x + y * WIDTH] = sheet.pixels[x + this.x + (y + this.y) * sheet.WIDTH];
+                origPixels[x + y * WIDTH] = sheet.pixels[x + this.x + (y + this.y) * sheet.WIDTH];
             }
         }
     }
 
     public void setColisionBox(int x, int y, int width, int height){
-        collisionBox = new BoundingBox(x,y,height,width);
+        collisionBox = new BoundingBox(x - this.WIDTH/2,y - this.HEIGHT/2,height,width);
     }
 
     public void effectPaint(int color){
         for (int y =0 ; y<HEIGHT; y++){
             for (int x =0 ; x<WIDTH; x++) {
-                if(pixels[x + y * HEIGHT] != alphaColor)
-                    pixels[x + y * HEIGHT] = color;
+                if(pixels[x + y * WIDTH] != alphaColor)
+                    pixels[x + y * WIDTH] = color;
             }
         }
     }
@@ -82,8 +82,8 @@ public class Sprite {
     public void effectNetOverlay(int color){
         for (int y =0 ; y<HEIGHT; y++){
             for (int x =y%2 ; x<WIDTH; x+=2) {
-                if(pixels[x + y * HEIGHT] != alphaColor)
-                    pixels[x + y * HEIGHT] = color;
+                if(pixels[x + y * WIDTH] != alphaColor)
+                    pixels[x + y * WIDTH] = color;
             }
         }
     }
@@ -91,8 +91,8 @@ public class Sprite {
     public void effectAdjustHue(double amount, char RGB){
         for (int y =0 ; y<HEIGHT; y++){
             for (int x =0 ; x<WIDTH; x++) {
-                if(pixels[x + y * HEIGHT] != alphaColor) {
-                    pixels[x + y * HEIGHT] = adjustHue(pixels[x + y * HEIGHT] ,amount,RGB);
+                if(pixels[x + y * WIDTH] != alphaColor) {
+                    pixels[x + y * WIDTH] = adjustHue(pixels[x + y * WIDTH] ,amount,RGB);
                 }
             }
         }
@@ -133,7 +133,7 @@ public class Sprite {
     public void restore(double heightPercent){
         for (int y = HEIGHT-1 ; y >= (int)((HEIGHT -1)*(1-heightPercent)); y--){
             for (int x =0 ; x<WIDTH; x++) {
-                pixels[x + y * HEIGHT] = origPixels[x + y * HEIGHT];
+                pixels[x + y * WIDTH] = origPixels[x + y * WIDTH];
             }
         }
     }
