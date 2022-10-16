@@ -25,7 +25,7 @@ public class HealthCrystal extends Powerup{
         this.ay = 0;
         this.x = x;
         this.y = y;
-        this.sprite = new AnimatedSprite(7,13,0,0, SpriteSheet.crystal,3,24 );
+        this.sprite = new AnimatedSprite(12,23,0,0, SpriteSheet.crystal,6,6 );
         this.sprite.setAnimation(Direction.DOWN);
         this.sprite.start();
     }
@@ -37,8 +37,7 @@ public class HealthCrystal extends Powerup{
         this.floor = floor;
         this.x = x;
         this.y = y;
-        this.sprite = new AnimatedSprite(7,13,0,0, SpriteSheet.crystal,3,24 );
-        this.sprite.setAnimation(Direction.DOWN);
+        this.sprite = new AnimatedSprite(12,24,0,3, SpriteSheet.crystal,6,6 );
         this.sprite.start();
         this.owner = owner;
     }

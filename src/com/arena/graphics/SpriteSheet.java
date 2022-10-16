@@ -23,7 +23,7 @@ public class SpriteSheet {
     public static SpriteSheet castleTowers = new SpriteSheet("/textures/edited_tower.png",32*4,32);
     public static SpriteSheet heartImg = new SpriteSheet("/textures/heart.png",9,9);
     //public static SpriteSheet crystal = new SpriteSheet("/textures/Crystal_edited.png",336,117,14,26);
-    public static SpriteSheet crystal = new SpriteSheet("/textures/Crystal_edited_small.png",336,117,6,12);
+    public static SpriteSheet crystal = new SpriteSheet("/textures/crystal.png",72,96,12,24);
 
     public SpriteSheet(String path, int size, int tileSize){
         this.path = path;
